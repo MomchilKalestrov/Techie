@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://djxrhuh1oxknu"]
+
+[ext_resource type="Script" uid="uid://bpflwbbcsg104" path="res://prefabs/player/player.gd" id="1_sxsrd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxsrd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sxsrd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sxsrd"]
+material = SubResource("StandardMaterial3D_sxsrd")
+
+[sub_resource type="BoxMesh" id="BoxMesh_sxsrd"]
+size = Vector3(1, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sxsrd"]
+size = Vector3(0.75, 1.75, 0.5)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_sxsrd")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_sxsrd")
+
+[node name="Model" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_sxsrd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -0.25)
+mesh = SubResource("BoxMesh_sxsrd")
+
+[node name="WallCheck" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallCheck"]
+shape = SubResource("BoxShape3D_sxsrd")
+
+[connection signal="area_entered" from="WallCheck" to="." method="_facing_wall"]
+[connection signal="area_exited" from="WallCheck" to="." method="_not_facing_wall"]

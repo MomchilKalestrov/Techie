@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dj3sh1opdr4jg"]
+
+[ext_resource type="Texture2D" uid="uid://p6tq1qyrvdb2" path="res://visual/textures/crate/crate_albedo.png" id="1_jdxex"]
+[ext_resource type="Texture2D" uid="uid://xi1khgchp2f6" path="res://visual/textures/crate/crate_normal.png" id="2_3rssh"]
+
+[resource]
+albedo_texture = ExtResource("1_jdxex")
+normal_enabled = true
+normal_scale = 0.38
+normal_texture = ExtResource("2_3rssh")
+uv1_scale = Vector3(3, 2.005, 1)

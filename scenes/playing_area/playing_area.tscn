@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8u3jlojyioq3"]
+
+[ext_resource type="Script" uid="uid://ceqx6g3gs8vwk" path="res://scenes/playing_area/playing_area.gd" id="1_cxovj"]
+[ext_resource type="PackedScene" uid="uid://quvnk4xrikn7" path="res://scenes/code_editor/code_editor.tscn" id="3_e3miu"]
+[ext_resource type="Material" uid="uid://bhk6ueyxjem6n" path="res://visual/textures/grass/grass.tres" id="3_mou72"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e3miu"]
+albedo_color = Color(0.439215, 0.549411, 0.423877, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_cxovj"]
+material = SubResource("StandardMaterial3D_e3miu")
+size = Vector2(20, 20)
+orientation = 1
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ptsdl"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_e3miu"]
+
+[sub_resource type="Sky" id="Sky_n67e0"]
+sky_material = SubResource("PhysicalSkyMaterial_e3miu")
+
+[sub_resource type="Environment" id="Environment_e3miu"]
+background_mode = 2
+sky = SubResource("Sky_n67e0")
+
+[node name="PlayingArea" type="Node3D"]
+script = ExtResource("1_cxovj")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3, 3)
+current = true
+fov = 100.0
+size = 20.0
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="Model" type="MeshInstance3D" parent="Floor"]
+material_override = ExtResource("3_mou72")
+mesh = SubResource("QuadMesh_cxovj")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_ptsdl")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e3miu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_blur = 0.5
+directional_shadow_split_2 = 0.0
+directional_shadow_split_3 = 0.0
+directional_shadow_max_distance = 8192.0
+directional_shadow_pancake_size = 0.0
+
+[node name="CodeEditor" parent="." instance=ExtResource("3_e3miu")]
