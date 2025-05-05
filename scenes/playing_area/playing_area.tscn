@@ -16,7 +16,7 @@ texture_filter = 0
 
 [sub_resource type="QuadMesh" id="QuadMesh_vba5k"]
 material = SubResource("StandardMaterial3D_vba5k")
-size = Vector2(20, 20)
+size = Vector2(30, 30)
 orientation = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e3miu"]
@@ -25,7 +25,7 @@ albedo_color = Color(0.439215, 0.549411, 0.423877, 1)
 [sub_resource type="QuadMesh" id="QuadMesh_cxovj"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_e3miu")
-size = Vector2(20, 20)
+size = Vector2(30, 30)
 orientation = 1
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ptsdl"]
@@ -75,6 +75,10 @@ transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 9, 9)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_vba5k")
