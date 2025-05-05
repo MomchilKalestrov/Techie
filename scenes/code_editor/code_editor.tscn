@@ -4,51 +4,54 @@
 [ext_resource type="Script" uid="uid://c7b4bpsdd4qrw" path="res://scenes/code_editor/code_editor.gd" id="1_q0psu"]
 
 [node name="CodeEditor" type="VBoxContainer"]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 256.0
-grow_vertical = 2
-theme = ExtResource("1_j6ccg")
-script = ExtResource("1_q0psu")
-
-[node name="Navigation" type="Control" parent="."]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-
-[node name="BG" type="ColorRect" parent="Navigation"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+theme = ExtResource("1_j6ccg")
+script = ExtResource("1_q0psu")
 
-[node name="OpenEditor" type="Button" parent="Navigation"]
+[node name="NavBar" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 43)
+layout_mode = 2
+
+[node name="Container" type="HFlowContainer" parent="NavBar"]
 layout_mode = 1
-offset_left = 9.0
-offset_top = 16.0
-offset_right = 70.0
-offset_bottom = 32.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+last_wrap_alignment = 2
+
+[node name="Back" type="Button" parent="NavBar/Container"]
+layout_mode = 2
+text = "Back"
+
+[node name="ToggleEditor" type="Button" parent="NavBar/Container"]
+layout_mode = 2
+toggle_mode = true
 text = "Editor"
 
-[node name="Run" type="Button" parent="Navigation"]
-layout_mode = 1
-offset_left = 70.0
-offset_top = 16.0
-offset_right = 108.0
-offset_bottom = 32.0
+[node name="Run" type="Button" parent="NavBar/Container"]
+layout_mode = 2
 text = "Run"
 
-[node name="Button" type="Button" parent="Navigation"]
-layout_mode = 0
-offset_left = 108.0
-offset_top = 16.0
-offset_right = 154.0
-offset_bottom = 32.0
+[node name="Stop" type="Button" parent="NavBar/Container"]
+layout_mode = 2
 text = "Stop"
 
-[node name="Ide" type="TextEdit" parent="."]
+[node name="Main" type="VSplitContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Ide" type="CodeEdit" parent="Main"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "await moveLeft();
@@ -57,7 +60,18 @@ log(\"ddd\");
 
 if (!(await isFacingWall()))
     await moveUp()"
+gutters_draw_line_numbers = true
+code_completion_enabled = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
 
-[connection signal="button_up" from="Navigation/OpenEditor" to="." method="toggle_editor"]
-[connection signal="button_up" from="Navigation/Run" to="." method="run"]
-[connection signal="button_up" from="Navigation/Button" to="." method="stop"]
+[node name="Logger" type="TextEdit" parent="Main"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Console:"
+editable = false
+
+[connection signal="button_up" from="NavBar/Container/Back" to="." method="_back"]
+[connection signal="button_up" from="NavBar/Container/ToggleEditor" to="." method="_toggle_editor"]
+[connection signal="button_up" from="NavBar/Container/Run" to="." method="_run"]
+[connection signal="button_up" from="NavBar/Container/Stop" to="." method="_stop"]

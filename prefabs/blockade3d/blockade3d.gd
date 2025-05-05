@@ -13,10 +13,7 @@ func _ready() -> void:
 	if activator == null:
 		push_error("Activator cannot be null");
 	
-	var base: MeshInstance3D = MeshInstance3D.new();
-	base.mesh = BoxMesh.new();
-	base.mesh.size.y = 0.125;
-	base.position.y = 0.06125;
+	var base: Node3D = preload("res://visual/models/blockade/base.glb").instantiate();
 	
 	_blockade = StaticBody3D.new();
 	_blockade.position.y = 0.5;
@@ -24,13 +21,11 @@ func _ready() -> void:
 	var collision: CollisionShape3D = CollisionShape3D.new();
 	collision.shape = BoxShape3D.new();
 	
-	var blockade_mesh: MeshInstance3D = MeshInstance3D.new();
-	blockade_mesh.mesh = BoxMesh.new();
-	blockade_mesh.mesh.size = Vector3(0.875, 1.0, 0.875);
+	var bars: Node3D = preload("res://visual/models/blockade/bars.glb").instantiate();
 	
 	add_child(base);
 	_blockade.add_child(collision);
-	_blockade.add_child(blockade_mesh);
+	_blockade.add_child(bars);
 	add_child(_blockade);
 
 func _process(delta: float) -> void:

@@ -27,3 +27,7 @@ project/assembly_name="Techie"
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[internationalization]
+
+locale/locale_filter_mode=1

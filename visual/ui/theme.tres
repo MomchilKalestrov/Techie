@@ -1,48 +1,22 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://bypc4xue8puse"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bypc4xue8puse"]
 
-[ext_resource type="FontFile" uid="uid://b8527dhhchpa5" path="res://visual/ui/dos_font.ttf" id="1_ou2qp"]
-[ext_resource type="StyleBox" uid="uid://cwmt5k8qeo8pd" path="res://visual/ui/active_button.tres" id="2_hlbd7"]
+[ext_resource type="FontFile" uid="uid://bahg3gjdoh88o" path="res://visual/ui/roboto_mono_regular.ttf" id="1_pe6q4"]
+[ext_resource type="Texture2D" uid="uid://b5o4b2fmwd2t8" path="res://visual/ui/h_grabber.svg" id="2_hlbd7"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlbd7"]
-texture_margin_left = 9.0
-texture_margin_right = 9.0
+[sub_resource type="Gradient" id="Gradient_hlbd7"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pe6q4"]
-texture_margin_left = 9.0
-texture_margin_right = 9.0
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pe6q4"]
+gradient = SubResource("Gradient_hlbd7")
+width = 32
+height = 32
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ge6oa"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hlbd7"]
-bg_color = Color(0, 0, 0, 0.501961)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pe6q4"]
-bg_color = Color(0, 0, 0, 0.501961)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sogop"]
-bg_color = Color(0, 0, 0, 0.501961)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sogop"]
+texture = ExtResource("2_hlbd7")
+texture_margin_top = 32.0
+axis_stretch_vertical = 2
 
 [resource]
-Button/colors/font_color = Color(0, 1, 0, 1)
-Button/colors/font_focus_color = Color(0, 1, 0, 1)
-Button/colors/font_hover_color = Color(0, 1, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0, 1, 0, 1)
-Button/colors/font_pressed_color = Color(0, 1, 0, 1)
-Button/constants/h_separation = 0
-Button/fonts/font = ExtResource("1_ou2qp")
-Button/styles/disabled = SubResource("StyleBoxTexture_hlbd7")
-Button/styles/focus = SubResource("StyleBoxTexture_pe6q4")
-Button/styles/hover = ExtResource("2_hlbd7")
-Button/styles/normal = SubResource("StyleBoxEmpty_ge6oa")
-Button/styles/pressed = ExtResource("2_hlbd7")
-Label/fonts/font = ExtResource("1_ou2qp")
-TextEdit/colors/background_color = Color(0, 0, 0, 0)
-TextEdit/colors/caret_background_color = Color(0, 0, 0, 0)
-TextEdit/colors/caret_color = Color(1, 1, 1, 1)
-TextEdit/colors/current_line_color = Color(0, 0, 0, 0)
-TextEdit/colors/font_color = Color(1, 1, 1, 1)
-TextEdit/constants/line_spacing = 0
-TextEdit/fonts/font = ExtResource("1_ou2qp")
-TextEdit/styles/focus = SubResource("StyleBoxFlat_hlbd7")
-TextEdit/styles/normal = SubResource("StyleBoxFlat_pe6q4")
-TextEdit/styles/read_only = SubResource("StyleBoxFlat_sogop")
+CodeEdit/fonts/font = ExtResource("1_pe6q4")
+HSplitContainer/icons/grabber = SubResource("GradientTexture2D_pe6q4")
+HSplitContainer/styles/split_bar_background = SubResource("StyleBoxTexture_sogop")

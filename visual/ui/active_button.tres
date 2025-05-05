@@ -1,9 +1,0 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cwmt5k8qeo8pd"]
-
-[ext_resource type="Texture2D" uid="uid://c5knd2r35e6d7" path="res://visual/ui/braces.png" id="1_i4bq1"]
-
-[resource]
-texture = ExtResource("1_i4bq1")
-texture_margin_left = 9.0
-texture_margin_right = 9.0
-draw_center = false

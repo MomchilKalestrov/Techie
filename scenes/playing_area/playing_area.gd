@@ -7,6 +7,7 @@ func _ready() -> void:
 	_load_world();
 	await get_tree().process_frame;
 	_save_state();
+	print($HSplitContainer.visible);
 
 func _load_world() -> void:
 	var set_state = func(node: Node3D, state: Variant) -> void:
@@ -15,7 +16,7 @@ func _load_world() -> void:
 			state.position.y,
 			state.position.z
 		);
-		node.rotation = Vector3(
+		node.rotation_degrees = Vector3(
 			state.rotation.x,
 			state.rotation.y,
 			state.rotation.z

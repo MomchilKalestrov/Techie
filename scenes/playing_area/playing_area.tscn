@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8u3jlojyioq3"]
+[gd_scene load_steps=14 format=3 uid="uid://b8u3jlojyioq3"]
 
 [ext_resource type="Script" uid="uid://ceqx6g3gs8vwk" path="res://scenes/playing_area/playing_area.gd" id="1_cxovj"]
 [ext_resource type="Texture2D" uid="uid://ci5lemyexipu7" path="res://visual/textures/grid.png" id="2_n67e0"]
 [ext_resource type="PackedScene" uid="uid://quvnk4xrikn7" path="res://scenes/code_editor/code_editor.tscn" id="3_e3miu"]
 [ext_resource type="Material" uid="uid://bhk6ueyxjem6n" path="res://visual/textures/grass/grass.tres" id="3_mou72"]
+[ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="4_vba5k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vba5k"]
 transparency = 1
@@ -67,7 +68,20 @@ directional_shadow_split_3 = 0.0
 directional_shadow_max_distance = 8192.0
 directional_shadow_pancake_size = 0.0
 
-[node name="CodeEditor" parent="." instance=ExtResource("3_e3miu")]
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 9, 9)
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_vba5k")
+split_offset = 700
+
+[node name="CodeEditor" parent="HSplitContainer" instance=ExtResource("3_e3miu")]
+layout_mode = 2
+
+[node name="Window" type="Control" parent="HSplitContainer"]
+layout_mode = 2

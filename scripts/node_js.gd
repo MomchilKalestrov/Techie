@@ -13,7 +13,8 @@ var functions: Dictionary[ String, Callable ] = {
 	"move_right": func () -> void:
 		Globals.player.target_position.x += 1,
 	"log": func (message) -> void:
-		print(message),
+		_logger.call(message)
+		print("Message from Node.JS environment: ", message),
 	"is_facing_wall": func() -> bool:
 		return Globals.player.is_facing_wall;
 };
@@ -21,6 +22,7 @@ var functions: Dictionary[ String, Callable ] = {
 var server: TCPServer;
 var client: StreamPeerTCP;
 var _nodePid: int = 0;
+var _logger: Callable;
 
 func _open_session() -> void:
 	if server != null:
@@ -137,12 +139,13 @@ func send_next_command() -> void:
 		return;
 	client.put_data(("status:ready").to_utf8_buffer())
 
-func instatiate_node_js(code: String) -> void:
+func instatiate_node_js(code: String, logger: Callable) -> void:
 	_open_session();
 	
 	kill_node_js();
 	var path: String = _save_to_temp_file(code);
 	_nodePid = OS.create_process("node", [ path ]);
+	_logger = logger;
 
 func kill_node_js() -> void:
 	if OS.is_process_running(_nodePid) and _nodePid != 0:

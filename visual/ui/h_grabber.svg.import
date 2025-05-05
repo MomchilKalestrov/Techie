@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5knd2r35e6d7"
-path="res://.godot/imported/braces.png-3f8fb4552be15502ae9fbe849a8bdf62.ctex"
+uid="uid://b5o4b2fmwd2t8"
+path="res://.godot/imported/h_grabber.svg-2a18fc4e841510e7b8149f36ae6ac482.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://visual/ui/braces.png"
-dest_files=["res://.godot/imported/braces.png-3f8fb4552be15502ae9fbe849a8bdf62.ctex"]
+source_file="res://visual/ui/h_grabber.svg"
+dest_files=["res://.godot/imported/h_grabber.svg-2a18fc4e841510e7b8149f36ae6ac482.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
