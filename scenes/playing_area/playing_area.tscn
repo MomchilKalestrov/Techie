@@ -1,13 +1,28 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8u3jlojyioq3"]
+[gd_scene load_steps=13 format=3 uid="uid://b8u3jlojyioq3"]
 
 [ext_resource type="Script" uid="uid://ceqx6g3gs8vwk" path="res://scenes/playing_area/playing_area.gd" id="1_cxovj"]
+[ext_resource type="Texture2D" uid="uid://ci5lemyexipu7" path="res://visual/textures/grid.png" id="2_n67e0"]
 [ext_resource type="PackedScene" uid="uid://quvnk4xrikn7" path="res://scenes/code_editor/code_editor.tscn" id="3_e3miu"]
 [ext_resource type="Material" uid="uid://bhk6ueyxjem6n" path="res://visual/textures/grass/grass.tres" id="3_mou72"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vba5k"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.12549)
+albedo_texture = ExtResource("2_n67e0")
+uv1_offset = Vector3(0.5, 0, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_vba5k"]
+material = SubResource("StandardMaterial3D_vba5k")
+size = Vector2(20, 20)
+orientation = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e3miu"]
 albedo_color = Color(0.439215, 0.549411, 0.423877, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_cxovj"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_e3miu")
 size = Vector2(20, 20)
 orientation = 1
@@ -26,15 +41,13 @@ sky = SubResource("Sky_n67e0")
 [node name="PlayingArea" type="Node3D"]
 script = ExtResource("1_cxovj")
 
-[node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3, 3)
-current = true
-fov = 100.0
-size = 20.0
-
 [node name="Floor" type="StaticBody3D" parent="."]
 
-[node name="Model" type="MeshInstance3D" parent="Floor"]
+[node name="Grid" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("QuadMesh_vba5k")
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
 material_override = ExtResource("3_mou72")
 mesh = SubResource("QuadMesh_cxovj")
 skeleton = NodePath("../..")
@@ -55,3 +68,6 @@ directional_shadow_max_distance = 8192.0
 directional_shadow_pancake_size = 0.0
 
 [node name="CodeEditor" parent="." instance=ExtResource("3_e3miu")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 9, 9)

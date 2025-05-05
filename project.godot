@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Techie"
-run/main_scene="uid://b8u3jlojyioq3"
+run/main_scene="uid://bwxolw5wcd21s"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 NodeJs="*res://scripts/node_js.gd"
 Globals="*res://scripts/globals.gd"
+
+[dotnet]
+
+project/assembly_name="Techie"
 
 [editor_plugins]
 

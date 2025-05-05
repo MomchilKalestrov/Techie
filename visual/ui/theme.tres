@@ -3,9 +3,13 @@
 [ext_resource type="FontFile" uid="uid://b8527dhhchpa5" path="res://visual/ui/dos_font.ttf" id="1_ou2qp"]
 [ext_resource type="StyleBox" uid="uid://cwmt5k8qeo8pd" path="res://visual/ui/active_button.tres" id="2_hlbd7"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pe6q4"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlbd7"]
+texture_margin_left = 9.0
+texture_margin_right = 9.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hlbd7"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pe6q4"]
+texture_margin_left = 9.0
+texture_margin_right = 9.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ge6oa"]
 
@@ -26,8 +30,8 @@ Button/colors/font_hover_pressed_color = Color(0, 1, 0, 1)
 Button/colors/font_pressed_color = Color(0, 1, 0, 1)
 Button/constants/h_separation = 0
 Button/fonts/font = ExtResource("1_ou2qp")
-Button/styles/disabled = SubResource("StyleBoxEmpty_pe6q4")
-Button/styles/focus = SubResource("StyleBoxEmpty_hlbd7")
+Button/styles/disabled = SubResource("StyleBoxTexture_hlbd7")
+Button/styles/focus = SubResource("StyleBoxTexture_pe6q4")
 Button/styles/hover = ExtResource("2_hlbd7")
 Button/styles/normal = SubResource("StyleBoxEmpty_ge6oa")
 Button/styles/pressed = ExtResource("2_hlbd7")

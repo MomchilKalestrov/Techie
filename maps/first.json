@@ -1,0 +1,73 @@
+[
+	{
+		"type": "player",
+		"name": "player",
+		"position": {
+			"x": 0.0,
+			"y": 1.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "button",
+		"name": "button-1",
+		"position": {
+			"x": -2.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "blockade",
+		"name": "blockade-1",
+		"activator": "button-1",
+		"position": {
+			"x": 2.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-1",
+		"position": {
+			"x": -1.0,
+			"y": 0.0,
+			"z": 1.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-2",
+		"position": {
+			"x": -1.0,
+			"y": 0.0,
+			"z": -1.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	}
+]
