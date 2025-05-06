@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dccgcvrh71c8v"
-path.s3tc="res://.godot/imported/simple_pin_leaves_albedo.png-4bcd52e65c7afb3eb17e02578023a85f.s3tc.ctex"
+uid="uid://b3tqdr3qlmsjb"
+path.s3tc="res://.godot/imported/ground_mat_normal.png-d2ac10f1cb152d2c186f3b2124e2f924.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://visual/textures/leaves/simple_pin_leaves_albedo.png"
-dest_files=["res://.godot/imported/simple_pin_leaves_albedo.png-4bcd52e65c7afb3eb17e02578023a85f.s3tc.ctex"]
+source_file="res://visual/materials/ground/ground_mat_normal.png"
+dest_files=["res://.godot/imported/ground_mat_normal.png-d2ac10f1cb152d2c186f3b2124e2f924.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://visual/textures/ground/ground_mat_normal.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

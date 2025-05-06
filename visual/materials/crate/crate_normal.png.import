@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsmytgfeo122x"
-path.s3tc="res://.godot/imported/grass_mat_normal.png-0cc0be40412869038711472d0193eb80.s3tc.ctex"
+uid="uid://xi1khgchp2f6"
+path.s3tc="res://.godot/imported/crate_normal.png-41440ac8bf5a84e40219cda13de2fa89.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "53946bbfa3bcc6f2ecc62c8456a39280"
+}
 
 [deps]
 
-source_file="res://visual/textures/grass/grass_mat_normal.png"
-dest_files=["res://.godot/imported/grass_mat_normal.png-0cc0be40412869038711472d0193eb80.s3tc.ctex"]
+source_file="res://visual/materials/crate/crate_normal.png"
+dest_files=["res://.godot/imported/crate_normal.png-41440ac8bf5a84e40219cda13de2fa89.s3tc.ctex"]
 
 [params]
 
@@ -25,7 +28,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://visual/textures/grass/grass_mat_normal.png"
+roughness/src_normal="res://visual/BoxModel_crate_normal.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

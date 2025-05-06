@@ -1,39 +1,20 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8u3jlojyioq3"]
+[gd_scene load_steps=11 format=3 uid="uid://b8u3jlojyioq3"]
 
 [ext_resource type="Script" uid="uid://ceqx6g3gs8vwk" path="res://scenes/playing_area/playing_area.gd" id="1_cxovj"]
-[ext_resource type="Texture2D" uid="uid://ci5lemyexipu7" path="res://visual/textures/grid.png" id="2_n67e0"]
+[ext_resource type="PackedScene" uid="uid://cn88ojr4jkknv" path="res://visual/models/island/island.glb" id="2_vba5k"]
 [ext_resource type="PackedScene" uid="uid://quvnk4xrikn7" path="res://scenes/code_editor/code_editor.tscn" id="3_e3miu"]
-[ext_resource type="Material" uid="uid://bhk6ueyxjem6n" path="res://visual/textures/grass/grass.tres" id="3_mou72"]
 [ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="4_vba5k"]
+[ext_resource type="Material" uid="uid://d1jdsxri4wokl" path="res://visual/materials/water/water.tres" id="6_mou72"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vba5k"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.12549)
-albedo_texture = ExtResource("2_n67e0")
-uv1_offset = Vector3(0.5, 0, 0.5)
-uv1_triplanar = true
-texture_filter = 0
+[sub_resource type="PlaneMesh" id="PlaneMesh_autnx"]
+size = Vector2(100, 100)
 
-[sub_resource type="QuadMesh" id="QuadMesh_vba5k"]
-material = SubResource("StandardMaterial3D_vba5k")
-size = Vector2(30, 30)
-orientation = 1
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_vba5k"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e3miu"]
-albedo_color = Color(0.439215, 0.549411, 0.423877, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_cxovj"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_e3miu")
-size = Vector2(30, 30)
-orientation = 1
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ptsdl"]
-
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_e3miu"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vba5k"]
 
 [sub_resource type="Sky" id="Sky_n67e0"]
-sky_material = SubResource("PhysicalSkyMaterial_e3miu")
+sky_material = SubResource("ProceduralSkyMaterial_vba5k")
 
 [sub_resource type="Environment" id="Environment_e3miu"]
 background_mode = 2
@@ -44,17 +25,17 @@ script = ExtResource("1_cxovj")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 
-[node name="Grid" type="MeshInstance3D" parent="Floor"]
-mesh = SubResource("QuadMesh_vba5k")
+[node name="Island" parent="Floor" instance=ExtResource("2_vba5k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="Mesh" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
-material_override = ExtResource("3_mou72")
-mesh = SubResource("QuadMesh_cxovj")
+[node name="Water" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("6_mou72")
+mesh = SubResource("PlaneMesh_autnx")
 skeleton = NodePath("../..")
 
 [node name="Collision" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("WorldBoundaryShape3D_ptsdl")
+shape = SubResource("WorldBoundaryShape3D_vba5k")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_e3miu")
@@ -68,7 +49,7 @@ directional_shadow_split_3 = 0.0
 directional_shadow_max_distance = 8192.0
 directional_shadow_pancake_size = 0.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 9, 9)
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]

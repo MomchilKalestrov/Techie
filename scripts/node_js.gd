@@ -137,14 +137,37 @@ const client = net.createConnection({ port: 5000 }, async () => {
 func send_next_command() -> void:
 	if client == null:
 		return;
-	client.put_data(("status:ready").to_utf8_buffer())
+	client.put_data(("status:ready").to_utf8_buffer());
+
+func _get_node_path() -> String:
+	var os: String = OS.get_name();
+	
+	var arch: String = "unknown";
+	if OS.has_feature("x86_64"):
+		arch = "x86_64";
+	elif OS.has_feature("x86"):
+		arch = "x86";
+	elif OS.has_feature("arm64"):
+		arch = "arm64";
+	
+	var cwd: String = OS.get_executable_path().get_base_dir();
+	if OS.has_feature("editor"):
+		cwd = ProjectSettings.globalize_path("res://");
+	
+	var node_path: String = cwd + "/bin/node/node-" + os + "-" + arch;
+	
+	if os == "Windows":
+		node_path += ".exe";
+		
+	return node_path;
 
 func instatiate_node_js(code: String, logger: Callable) -> void:
 	_open_session();
 	
 	kill_node_js();
 	var path: String = _save_to_temp_file(code);
-	_nodePid = OS.create_process("node", [ path ]);
+	_nodePid = OS.create_process(_get_node_path(), [ path ]);
+	print(_nodePid)
 	_logger = logger;
 
 func kill_node_js() -> void:

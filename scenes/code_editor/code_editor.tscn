@@ -56,6 +56,7 @@ text = "Stop"
 [node name="Main" type="VSplitContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 
 [node name="Ide" type="CodeEdit" parent="Main"]
 layout_mode = 2
