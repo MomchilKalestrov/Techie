@@ -20,11 +20,10 @@ const save_state: bool = true;
 func _ready() -> void:
 	Globals.player = self;
 
-func round_vector(vector: Vector3) -> Vector3:
-	return (vector * 100).round() / 100;
-
 func _physics_process(_d: float) -> void:
-	velocity = round_vector(target_position - global_position) * 10;
+	# Mrs. Nickolova would probably kill herself if she saw
+	# how we calculate the velocity but fuck it we ball
+	velocity = (target_position - global_position).snappedf(0.01) * 10;
 	if velocity == Vector3.ZERO and not has_reached_destination:
 		has_reached_destination = true;
 		NodeJs.send_next_command();
