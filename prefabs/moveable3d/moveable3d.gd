@@ -14,7 +14,7 @@ func _ready() -> void:
 	
 	var mesh: MeshInstance3D = MeshInstance3D.new();
 	mesh.mesh = BoxMesh.new();
-	mesh.mesh.material = preload("res://visual/textures/crate/crate.tres");
+	mesh.mesh.material = preload("res://visual/materials/crate/crate.tres");
 	
 	add_child(collision);
 	add_child(mesh);
