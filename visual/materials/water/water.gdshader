@@ -1,19 +1,9 @@
-// 3D Water Shader similar to Zelda Windwaker - tested on Godot 4.3
-// Based on NekotoArts and modified for Godot 4.3 with enhancements
-// We are using a vertex shader to create wave motion by adjusting the height of vertices
-// the fragment shader generates the water surface appearance
-// by combining multiple layers of circular patterns to simulate the water & foam
-// and distortion with color mixing to achieve a toon water-like effect
-
-
 shader_type spatial;
 
-// Water color and foam color
 uniform vec4 WATER_COL : source_color = vec4(0.04, 0.38, 0.88, 1.0);
 uniform vec4 WATER2_COL : source_color = vec4(0.04, 0.35, 0.78, 1.0);
 uniform vec4 FOAM_COL : source_color = vec4(0.8125, 0.9609, 0.9648, 1.0);
 
-// Water animation and appearance
 uniform float distortion_speed = 2.0;
 uniform vec2 tile = vec2(5.0, 5.0);
 uniform float wave_speed = 2;
@@ -22,14 +12,11 @@ uniform float wave_frequency = 1.5;
 uniform float time_offset = 0.0;
 uniform vec2 water_size = vec2(128.0, 128.0);
 
-// Uniforms for transparency and depth effects
-
 uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
-uniform float water_transparency = 0.8; // Adjust this to control overall water transparency
-uniform float water_depth_factor = 0.1; // Adjust this to control how quickly water becomes opaque with depth
+uniform float water_transparency = 0.8;
+uniform float water_depth_factor = 0.1;
 
-// Foam uniforms for where the mesh intersects the water mesh
 uniform float foam_width = 0.5;
 uniform float foam_edge_softness = 0.05;
 uniform float foam_smoothness = 0.03;
@@ -37,18 +24,13 @@ uniform float foam_distortion_speed = 0.5;
 uniform float foam_distortion_amount = 0.1;
 
 
-// Math constants
 const float TWOPI = 6.283185307;
 const float SIXPI = 18.84955592;
 
-
-
- // Noise function for foam distortion
 float noise(vec2 uv) {
     return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
-//  noise function for smoother distortion
 float smooth_noise(vec2 uv) {
     vec2 id = floor(uv);
     vec2 f = fract(uv);
@@ -61,15 +43,13 @@ float smooth_noise(vec2 uv) {
     vec2 u = f * f * (3.0 - 2.0 * f);
     return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
 }
-// Function to calculate foam
+
 float calculate_foam(vec2 uv, float depth_diff, float time) {
-    // Add distortion to UV based on time and noise
     vec2 distorted_uv = uv + vec2(
         smooth_noise(uv * 5.0 + time * foam_distortion_speed) * foam_distortion_amount,
         smooth_noise(uv * 5.0 + 100.0 + time * foam_distortion_speed) * foam_distortion_amount
     );
 
-    // Calculate foam based on depth difference and distorted UV
     float foam_shape = smoothstep(0.0, foam_width, abs(depth_diff));
     foam_shape = smoothstep(foam_edge_softness, 0.0, foam_shape);
     foam_shape *= smooth_noise(distorted_uv * 10.0);
@@ -77,36 +57,27 @@ float calculate_foam(vec2 uv, float depth_diff, float time) {
     return foam_shape;
 }
 
-
-
-
-
-// Wave height calculation (unchanged)
 float calculate_wave_height(vec2 position, float time) {
     float wave_x = sin(position.x * wave_frequency + time * wave_speed);
     float wave_y = cos(position.y * wave_frequency + time * wave_speed);
     return (wave_x + wave_y) * 0.5 * wave_amplitude;
 }
 
-// Vertex shader (unchanged)
 void vertex() {
     vec4 world_position = MODEL_MATRIX * vec4(VERTEX, 1.0);
     float wave = calculate_wave_height(world_position.xz, TIME + time_offset);
     VERTEX.y += wave;
 }
 
-// Circle function for water effects
 float circ(vec2 pos, vec2 c, float s) {
     c = abs(pos - c);
     c = min(c, 1.0 - c);
     return smoothstep(0.0, 0.002, sqrt(s) - sqrt(dot(c, c))) * -1.0;
 }
 
-// Water layer function
-// use the circles to draw the toon water design
 float waterlayer(vec2 uv) {
-     uv = mod(uv, 1.0); // Clamp to [0..1]
-
+     uv = mod(uv, 1.0);
+	
     float ret = 1.0;
 
     ret += circ(uv, vec2(0.37378, 0.277169), 0.0268181);
@@ -262,8 +233,6 @@ float waterlayer(vec2 uv) {
 	return max(ret, 0.0);
 }
 
-
-// Water effect function to return vec4
 vec4 water(vec2 uv, vec3 cdir, float iTime) {
     uv *= vec2(0.25);
 
@@ -288,40 +257,30 @@ vec4 water(vec2 uv, vec3 cdir, float iTime) {
 }
 
 void fragment() {
-    // Calculate basic water effect
     vec4 water_color = water(UV * tile, vec3(0, 1, 0), TIME * distortion_speed);
 
-    // Get the depth of the pixel in the scene
     float scene_depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
 
-    // Convert scene depth to view space
     vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, scene_depth);
     vec4 view_coords = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
     view_coords.xyz /= view_coords.w;
     float linear_scene_depth = -view_coords.z;
 
-    // Calculate the depth of the water surface in view space
     vec4 water_world_pos = INV_VIEW_MATRIX * vec4(VERTEX, 1.0);
     vec4 water_view_pos = VIEW_MATRIX * water_world_pos;
     float linear_water_depth = -water_view_pos.z;
 
-    // Calculate depth difference
     float depth_diff = linear_scene_depth - linear_water_depth;
 
-    // Calculate foam
     float foam = calculate_foam(UV, depth_diff, TIME);
 
-    // Calculate water opacity based on depth
     float water_opacity = clamp(depth_diff * water_depth_factor, 0.0, 1.0);
 
-    // Mix water color with the scene behind it
     vec4 background = texture(SCREEN_TEXTURE, SCREEN_UV);
     vec4 final_color = mix(background, water_color, water_opacity * water_transparency);
 
-    // Add foam
     final_color = mix(final_color, FOAM_COL, foam);
 
-    // Set final color and alpha
     ALBEDO = final_color.rgb;
     ALPHA = final_color.a;
 }

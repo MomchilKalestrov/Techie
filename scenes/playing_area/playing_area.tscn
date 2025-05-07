@@ -19,6 +19,11 @@ sky_material = SubResource("ProceduralSkyMaterial_vba5k")
 [sub_resource type="Environment" id="Environment_e3miu"]
 background_mode = 2
 sky = SubResource("Sky_n67e0")
+fog_mode = 1
+fog_light_energy = 0.18
+fog_density = 1.0
+adjustment_enabled = true
+adjustment_saturation = 1.1
 
 [node name="PlayingArea" type="Node3D"]
 script = ExtResource("1_cxovj")
@@ -44,13 +49,11 @@ environment = SubResource("Environment_e3miu")
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
 shadow_enabled = true
 shadow_blur = 0.5
+directional_shadow_mode = 0
 directional_shadow_split_2 = 0.0
 directional_shadow_split_3 = 0.0
 directional_shadow_max_distance = 8192.0
 directional_shadow_pancake_size = 0.0
-
-[node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 9, 9)
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 anchors_preset = 15
@@ -70,3 +73,9 @@ layout_mode = 2
 
 [node name="Window" type="Control" parent="HSplitContainer"]
 layout_mode = 2
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 13)

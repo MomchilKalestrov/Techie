@@ -167,7 +167,6 @@ func instatiate_node_js(code: String, logger: Callable) -> void:
 	kill_node_js();
 	var path: String = _save_to_temp_file(code);
 	_nodePid = OS.create_process(_get_node_path(), [ path ]);
-	print(_nodePid)
 	_logger = logger;
 
 func kill_node_js() -> void:
