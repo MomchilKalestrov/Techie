@@ -1,22 +1,6 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bypc4xue8puse"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bypc4xue8puse"]
 
 [ext_resource type="FontFile" uid="uid://bahg3gjdoh88o" path="res://visual/ui/roboto_mono_regular.ttf" id="1_pe6q4"]
-[ext_resource type="Texture2D" uid="uid://b5o4b2fmwd2t8" path="res://visual/ui/h_grabber.svg" id="2_hlbd7"]
-
-[sub_resource type="Gradient" id="Gradient_hlbd7"]
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pe6q4"]
-gradient = SubResource("Gradient_hlbd7")
-width = 32
-height = 32
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sogop"]
-texture = ExtResource("2_hlbd7")
-texture_margin_top = 32.0
-axis_stretch_vertical = 2
 
 [resource]
 CodeEdit/fonts/font = ExtResource("1_pe6q4")
-HSplitContainer/icons/grabber = SubResource("GradientTexture2D_pe6q4")
-HSplitContainer/styles/split_bar_background = SubResource("StyleBoxTexture_sogop")

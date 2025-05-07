@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8u3jlojyioq3"]
+[gd_scene load_steps=15 format=3 uid="uid://b8u3jlojyioq3"]
 
 [ext_resource type="Script" uid="uid://ceqx6g3gs8vwk" path="res://scenes/playing_area/playing_area.gd" id="1_cxovj"]
 [ext_resource type="PackedScene" uid="uid://cn88ojr4jkknv" path="res://visual/models/island/island.glb" id="2_vba5k"]
@@ -24,6 +24,22 @@ fog_light_energy = 0.18
 fog_density = 1.0
 adjustment_enabled = true
 adjustment_saturation = 1.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vba5k"]
+shading_mode = 0
+
+[sub_resource type="TextMesh" id="TextMesh_vba5k"]
+material = SubResource("StandardMaterial3D_vba5k")
+text = "Forwards"
+uppercase = true
+depth = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mou72"]
+albedo_color = Color(0.803922, 0.215686, 0.258824, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_vba5k"]
+material = SubResource("StandardMaterial3D_mou72")
+size = Vector3(0.375, 0.5, 0.061)
 
 [node name="PlayingArea" type="Node3D"]
 script = ExtResource("1_cxovj")
@@ -74,8 +90,24 @@ layout_mode = 2
 [node name="Window" type="Control" parent="HSplitContainer"]
 layout_mode = 2
 
+[node name="DirectionsPivot" type="Node3D" parent="."]
+
+[node name="Text" type="MeshInstance3D" parent="DirectionsPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.25, 7, 9.125)
+mesh = SubResource("TextMesh_vba5k")
+skeleton = NodePath("../../root/@EditorNode@21301/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/PlayingArea/CameraPivot/Camera")
+
+[node name="Directions" type="MeshInstance3D" parent="DirectionsPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.25, 6.96, 9.125)
+layers = 5
+mesh = SubResource("PrismMesh_vba5k")
+skeleton = NodePath("../Text")
+
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 
 [node name="Camera" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 13)
+
+[connection signal="drag_ended" from="HSplitContainer" to="." method="_resize_end"]
+[connection signal="drag_started" from="HSplitContainer" to="." method="_resize_start"]

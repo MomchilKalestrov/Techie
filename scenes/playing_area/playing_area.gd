@@ -2,12 +2,21 @@ extends Node3D;
 
 var _node_states: Dictionary[ int, Node ] = {};
 
+@export var load_editor: bool = true;
+
 func _ready() -> void:
+	if not load_editor:
+		$HSplitContainer.queue_free();
+		return;
 	Globals.world = self;
+	load_map();
+	$HSplitContainer/CodeEditor/Main.drag_ended.connect(_resize_end);
+	$HSplitContainer/CodeEditor/Main.drag_started.connect(_resize_start);
+
+func load_map() -> void:
 	_load_world();
 	await get_tree().process_frame;
 	_save_state();
-	print($HSplitContainer.visible);
 
 func _half_walls(walls: Array[ Wall3D ]) -> void:
 	var _merge_walls = func(wall1: Wall3D, wall2: Wall3D) -> void:
@@ -36,7 +45,6 @@ func _half_walls(walls: Array[ Wall3D ]) -> void:
 	# why aren't there traditional for loops in gdscript :sob:
 	var i: int = 0;
 	var j: int = 0;
-	var flag: bool = false;
 	while i < len(walls) - 1:
 		var wall1 = walls[ i ];
 		if wall1 == null:
@@ -64,7 +72,6 @@ func _half_walls(walls: Array[ Wall3D ]) -> void:
 				_merge_walls.call(wall1, wall2);
 				walls[ i ] = null;
 				walls[ j ] = null;
-				flag = true;
 			
 			j += 1;
 		i += 1;
@@ -92,6 +99,7 @@ func _load_world() -> void:
 			"wall":
 				var wall: Wall3D = Wall3D.new();
 				set_state.call(wall, node);
+				wall.size = Vector2(node.size.x, node.size.y);
 				wall_nodes.push_front(wall);
 				add_child(wall);
 			"button":
@@ -143,3 +151,21 @@ func reset() -> void:
 				add_child(child_state);
 				
 	_save_state();
+
+var _is_resizing: bool = false;
+func _resize_start() -> void:
+	_is_resizing = true;
+func _resize_end() -> void:
+	_is_resizing = false;
+
+var _is_dragging: bool = false;
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		_is_dragging = !_is_dragging;
+	elif event is InputEventMouseMotion and _is_dragging and not _is_resizing:
+		$CameraPivot.rotation_degrees.y += event.screen_relative.x;
+		if $CameraPivot.rotation_degrees.y > 360.0:
+			$CameraPivot.rotation_degrees.y -= 360.0;
+		$DirectionsPivot.rotation_degrees.y = $CameraPivot.rotation_degrees.y;
+		$DirectionsPivot/Directions.rotation_degrees.y = -$CameraPivot.rotation_degrees.y;

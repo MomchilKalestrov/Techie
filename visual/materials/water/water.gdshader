@@ -77,7 +77,7 @@ float circ(vec2 pos, vec2 c, float s) {
 
 float waterlayer(vec2 uv) {
      uv = mod(uv, 1.0);
-	
+
     float ret = 1.0;
 
     ret += circ(uv, vec2(0.37378, 0.277169), 0.0268181);

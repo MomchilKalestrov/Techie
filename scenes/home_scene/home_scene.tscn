@@ -1,52 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwxolw5wcd21s"]
+[gd_scene load_steps=3 format=3 uid="uid://bwxolw5wcd21s"]
 
 [ext_resource type="Script" uid="uid://bv60ivncyl8n3" path="res://scenes/home_scene/home_scene.gd" id="1_kqkjk"]
+[ext_resource type="PackedScene" uid="uid://b8u3jlojyioq3" path="res://scenes/playing_area/playing_area.tscn" id="2_ba08s"]
 
-[node name="HomeScene" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HomeScene" type="Node3D"]
 script = ExtResource("1_kqkjk")
 
-[node name="Container" type="VBoxContainer" parent="."]
+[node name="PlayingArea" parent="." instance=ExtResource("2_ba08s")]
+load_editor = false
+
+[node name="Menu" type="Panel" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 264.0
+offset_bottom = -8.0
+grow_vertical = 2
+
+[node name="FlexBox" type="VBoxContainer" parent="Menu"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -72.0
-offset_right = 128.0
-offset_bottom = 72.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 
-[node name="Title" type="Label" parent="Container"]
+[node name="MapList" type="ItemList" parent="Menu/FlexBox"]
 layout_mode = 2
-text = "Level Select"
-horizontal_alignment = 1
+size_flags_vertical = 3
 
-[node name="Maps" type="OptionButton" parent="Container"]
+[node name="Run" type="Button" parent="Menu/FlexBox"]
 layout_mode = 2
+text = "Start Map"
 
-[node name="Or" type="Label" parent="Container"]
-layout_mode = 2
-text = "or"
-horizontal_alignment = 1
-
-[node name="MapUrl" type="LineEdit" parent="Container"]
-layout_mode = 2
-placeholder_text = "Map URL"
-
-[node name="Begin" type="Button" parent="Container"]
-layout_mode = 2
-text = "Start"
-
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[connection signal="button_up" from="Container/Begin" to="." method="_start_map"]
+[connection signal="item_selected" from="Menu/FlexBox/MapList" to="." method="_show_map"]
+[connection signal="button_up" from="Menu/FlexBox/Run" to="." method="_start_map"]
