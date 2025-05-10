@@ -1,20 +1,15 @@
 @tool
-
 @icon("res://prefabs/button3d/button3d.png")
-
-extends Node3D;
-
+extends Activator3D;
 class_name Button3D;
 
-signal button_pressed();
-signal button_released();
+const type: String = "Button";
 
 var _is_pressed: bool = false;
-var is_pressed: bool:
-	get:
-		return _is_pressed;
-
 var _button: MeshInstance3D;
+
+func is_active() -> bool:
+	return _is_pressed;
 
 func _ready() -> void:
 	var area: Area3D = Area3D.new();
@@ -49,9 +44,9 @@ func _process(delta: float) -> void:
 	_button.position.y = lerp(_button.position.y, 0.06125 if _is_pressed else 0.125, min(1, 5 * delta));
 
 func _pressed(_body: Node3D) -> void:
-	button_pressed.emit();
+	active.emit();
 	_is_pressed = true;
 
 func _released(_body: Node3D) -> void:
-	button_released.emit();
+	inactive.emit();
 	_is_pressed = false;

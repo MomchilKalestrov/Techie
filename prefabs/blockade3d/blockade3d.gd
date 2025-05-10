@@ -1,12 +1,11 @@
 @tool
-
 @icon("res://prefabs/blockade3d/blockade3d.png")
+extends Node3D;
+class_name Blockade3D;
 
-extends Node3D
+const type: String = "Blockade";
+@export var activator: Activator3D;
 
-class_name Blockade3D
-
-@export var activator: Button3D;
 var _blockade: StaticBody3D;
 
 func _ready() -> void:
@@ -29,4 +28,4 @@ func _ready() -> void:
 	add_child(_blockade);
 
 func _process(delta: float) -> void:
-	_blockade.position.y = lerp(_blockade.position.y, -0.5 if activator.is_pressed else 0.5, min(1, 5 * delta));
+	_blockade.position.y = lerp(_blockade.position.y, -0.5 if activator.is_active() else 0.5, min(1, 5 * delta));

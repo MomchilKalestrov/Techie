@@ -4,19 +4,21 @@ func is_facing_wall() -> bool:
 	return false;
 
 var functions: Dictionary[ String, Callable ] = {
-	"move_up": func () -> void:
-		Globals.player.target_position.z -= 1,
+	"move_forwards": func () -> void:
+		Globals.player.move_forwards(),
 	"move_down": func () -> void:
-		Globals.player.target_position.z += 1,
-	"move_left": func () -> void:
-		Globals.player.target_position.x -= 1,
-	"move_right": func () -> void:
-		Globals.player.target_position.x += 1,
+		Globals.player.move_backwards(),
+	"turn_left": func () -> void:
+		Globals.player.turn_left(),
+	"turn_right": func () -> void:
+		Globals.player.turn_right(),
 	"log": func (message) -> void:
 		_logger.call(message)
 		print("Message from Node.JS environment: ", message),
 	"is_facing_wall": func() -> bool:
-		return Globals.player.is_facing_wall;
+		return Globals.player.is_facing_wall,
+	"interract": func() -> void:
+		Globals.player.interract();
 };
 
 var server: TCPServer;
@@ -102,20 +104,20 @@ const client = net.createConnection({ port: 5000 }, async () => {
 			)
 		})
 	
-	const moveUp = async () => {
-		client.write("call:move_up|");
+	const moveForwards = async () => {
+		client.write("call:move_forwards|");
 		await _waitForPlayer();
 	};
-	const moveDown = async () => {
-		client.write("call:move_down|");
+	const moveBackwards = async () => {
+		client.write("call:move_backwards|");
 		await _waitForPlayer();
 	};
-	const moveLeft = async () => {
-		client.write("call:move_left|");
+	const turnLeft = async () => {
+		client.write("call:turn_left|");
 		await _waitForPlayer();
 	};
-	const moveRight = async () => {
-		client.write("call:move_right|");
+	const turnRight = async () => {
+		client.write("call:turn_right|");
 		await _waitForPlayer();
 	};
 	const log = (data) => {
@@ -124,6 +126,9 @@ const client = net.createConnection({ port: 5000 }, async () => {
 	const isFacingWall = async () => {
 		client.write("call:is_facing_wall");
 		return (await _waitForReturn("is_facing_wall")) === "true";
+	}
+	const interract = () => {
+		client.write("call:interract|");
 	}
 	
 	// start of client's code

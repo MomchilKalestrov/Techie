@@ -1,10 +1,10 @@
 @tool
+extends Node3D;
+class_name Wall3D;
 
-extends Node3D
-
-class_name Wall3D
-
+const type: String = "Wall";
 @export var size: Vector2 = Vector2(1.0, 1.0);
+const is_wall: bool = true;
 
 func _ready():
 	var wall: StaticBody3D = StaticBody3D.new();

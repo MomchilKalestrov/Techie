@@ -1,17 +1,15 @@
 extends Node3D;
 
-var _node_states: Dictionary[ int, Node ] = {};
+var _node_states: Dictionary[ int, Variant ] = {};
 
 @export var load_editor: bool = true;
 
 func _ready() -> void:
 	if not load_editor:
-		$HSplitContainer.queue_free();
+		$SplitContainer.queue_free();
 		return;
 	Globals.world = self;
 	load_map();
-	$HSplitContainer/CodeEditor/Main.drag_ended.connect(_resize_end);
-	$HSplitContainer/CodeEditor/Main.drag_started.connect(_resize_start);
 
 func load_map() -> void:
 	_load_world();
@@ -54,12 +52,7 @@ func _half_walls(walls: Array[ Wall3D ]) -> void:
 		j = i + 1;
 		while j < len(walls):
 			var wall2 = walls[ j ];
-			
-			if wall2 == null:
-				j += 1;
-				continue;
-			
-			if wall1.size != wall2.size:
+			if wall2 == null or wall1.size != wall2.size:
 				j += 1;
 				continue;
 			
@@ -70,8 +63,8 @@ func _half_walls(walls: Array[ Wall3D ]) -> void:
 				(wall1.position.z == wall2.position.z and \
 				abs(wall1.position.x - wall2.position.x) == 1.0):
 				_merge_walls.call(wall1, wall2);
-				walls[ i ] = null;
-				walls[ j ] = null;
+				walls[ i ].free();
+				walls[ j ].free();
 			
 			j += 1;
 		i += 1;
@@ -92,7 +85,7 @@ func _load_world() -> void:
 	
 	var wall_nodes: Array[ Wall3D ] = [];
 	var blockade_nodes: Array[ Variant ] = [];
-	var activators: Array[ Button3D ] = [];
+	var activators: Array[ Activator3D ] = [];
 	
 	for node in Globals.map_data:
 		match node.type:
@@ -118,6 +111,11 @@ func _load_world() -> void:
 					node.position.z
 				);
 				add_child(player);
+			"lever":
+				var lever: Lever3D = Lever3D.new();
+				set_state.call(lever, node);
+				add_child(lever);
+				activators.push_front(lever);
 	
 	# wait for the buttons to be added to the tree
 	await get_tree().process_frame;
@@ -141,7 +139,6 @@ func _save_state() -> void:
 		if "save_state" in child:
 			_node_states[ child_index ] = child.duplicate();
 
-
 func reset() -> void:
 	for child_state in _node_states.values():
 		for child in get_children():
@@ -149,23 +146,22 @@ func reset() -> void:
 				child.queue_free();
 				await get_tree().process_frame;
 				add_child(child_state);
-				
+			elif child is Lever3D and child.is_active():
+				child._interracted();
 	_save_state();
 
-var _is_resizing: bool = false;
-func _resize_start() -> void:
-	_is_resizing = true;
-func _resize_end() -> void:
-	_is_resizing = false;
+func _is_withing_rect(box_start: Vector2, box_end: Vector2, point: Vector2) -> bool:
+	return box_start.x < point.x and box_end.x > point.x and box_start.y < point.y and box_end.y > point.y;
 
 var _is_dragging: bool = false;
-
 func _input(event: InputEvent) -> void:
+	if not load_editor:
+		return;
+	
 	if event is InputEventMouseButton:
-		_is_dragging = !_is_dragging;
-	elif event is InputEventMouseMotion and _is_dragging and not _is_resizing:
+		var dragger_position: Vector2 = $SplitContainer/Window/DragRegion.global_position;
+		var dragger_size: Vector2 = $SplitContainer/Window/DragRegion.size;
+		_is_dragging = _is_withing_rect(dragger_position, dragger_position + dragger_size, event.global_position) and not _is_dragging;
+	
+	if event is InputEventMouseMotion and _is_dragging:
 		$CameraPivot.rotation_degrees.y += event.screen_relative.x;
-		if $CameraPivot.rotation_degrees.y > 360.0:
-			$CameraPivot.rotation_degrees.y -= 360.0;
-		$DirectionsPivot.rotation_degrees.y = $CameraPivot.rotation_degrees.y;
-		$DirectionsPivot/Directions.rotation_degrees.y = -$CameraPivot.rotation_degrees.y;

@@ -9,7 +9,7 @@ script = ExtResource("1_kqkjk")
 [node name="PlayingArea" parent="." instance=ExtResource("2_ba08s")]
 load_editor = false
 
-[node name="Menu" type="Panel" parent="."]
+[node name="MapsMenu" type="Panel" parent="."]
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 8.0
@@ -18,7 +18,7 @@ offset_right = 264.0
 offset_bottom = -8.0
 grow_vertical = 2
 
-[node name="FlexBox" type="VBoxContainer" parent="Menu"]
+[node name="FlexBox" type="VBoxContainer" parent="MapsMenu"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -30,13 +30,63 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MapList" type="ItemList" parent="Menu/FlexBox"]
+[node name="MapList" type="ItemList" parent="MapsMenu/FlexBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Run" type="Button" parent="Menu/FlexBox"]
+[node name="Run" type="Button" parent="MapsMenu/FlexBox"]
 layout_mode = 2
 text = "Start Map"
 
-[connection signal="item_selected" from="Menu/FlexBox/MapList" to="." method="_show_map"]
-[connection signal="button_up" from="Menu/FlexBox/Run" to="." method="_start_map"]
+[node name="Download" type="Button" parent="MapsMenu/FlexBox"]
+layout_mode = 2
+text = "Download Map"
+
+[node name="DownloadMenu" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -41.0
+offset_right = 128.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FlexBox" type="VBoxContainer" parent="DownloadMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="URL" type="LineEdit" parent="DownloadMenu/FlexBox"]
+layout_mode = 2
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="DownloadMenu/FlexBox"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="DownloadMenu/FlexBox/ButtonsContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="Download" type="Button" parent="DownloadMenu/FlexBox/ButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Download"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="item_selected" from="MapsMenu/FlexBox/MapList" to="." method="_show_map"]
+[connection signal="button_up" from="MapsMenu/FlexBox/Run" to="." method="_start_map"]
+[connection signal="button_up" from="MapsMenu/FlexBox/Download" to="." method="_toggle_download_map"]
+[connection signal="button_up" from="DownloadMenu/FlexBox/ButtonsContainer/Back" to="." method="_toggle_download_map"]
+[connection signal="button_up" from="DownloadMenu/FlexBox/ButtonsContainer/Download" to="." method="_download_and_load_map"]

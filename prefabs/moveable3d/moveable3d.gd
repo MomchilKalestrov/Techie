@@ -1,11 +1,9 @@
 @tool
-
 @icon("res://prefabs/moveable3d/moveable3d.png")
+extends RigidBody3D;
+class_name Moveable3D;
 
-extends RigidBody3D
-
-class_name Moveable3D
-
+const type: String = "Moveable";
 const save_state: bool = true;
 
 func _ready() -> void:

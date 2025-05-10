@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ejyp7slc77pw"
-path.s3tc="res://.godot/imported/button3d.png-b61d6bd9b2bd9ca3228b786d6fb22fbd.s3tc.ctex"
+uid="uid://bh2kvhonsnra7"
+path="res://.godot/imported/interractable3d.png-eb1bba51c7e47a9ffd312f33838a1265.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://prefabs/button3d/button3d.png"
-dest_files=["res://.godot/imported/button3d.png-b61d6bd9b2bd9ca3228b786d6fb22fbd.s3tc.ctex"]
+source_file="res://prefabs/interractable3d/interractable3d.png"
+dest_files=["res://.godot/imported/interractable3d.png-eb1bba51c7e47a9ffd312f33838a1265.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

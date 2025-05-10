@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ejyp7slc77pw"
-path.s3tc="res://.godot/imported/button3d.png-b61d6bd9b2bd9ca3228b786d6fb22fbd.s3tc.ctex"
+uid="uid://dhq32qf8usfqs"
+path.s3tc="res://.godot/imported/lever3d.png-57c6dbebaef0129ed3df1e5988687c65.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://prefabs/button3d/button3d.png"
-dest_files=["res://.godot/imported/button3d.png-b61d6bd9b2bd9ca3228b786d6fb22fbd.s3tc.ctex"]
+source_file="res://prefabs/lever3d/lever3d.png"
+dest_files=["res://.godot/imported/lever3d.png-57c6dbebaef0129ed3df1e5988687c65.s3tc.ctex"]
 
 [params]
 

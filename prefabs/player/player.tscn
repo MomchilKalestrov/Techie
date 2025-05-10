@@ -31,7 +31,7 @@ mesh = SubResource("BoxMesh_sxsrd")
 [node name="WallCheck" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallCheck"]
+[node name="Collision" type="CollisionShape3D" parent="WallCheck"]
 shape = SubResource("BoxShape3D_sxsrd")
 
 [connection signal="area_entered" from="WallCheck" to="." method="_facing_wall"]
