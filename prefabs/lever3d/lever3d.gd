@@ -33,3 +33,18 @@ func _physics_process(delta: float) -> void:
 
 func is_active() -> bool:
 	return _is_powered_on;
+
+func serialize() -> Dictionary:
+	return {
+		"type": "lever",
+		"position": {
+			"x": position.x,
+			"y": position.y,
+			"z": position.z
+		},
+		"rotation": {
+			"x": rotation_degrees.x,
+			"y": rotation_degrees.y,
+			"z": rotation_degrees.z
+		}
+	};

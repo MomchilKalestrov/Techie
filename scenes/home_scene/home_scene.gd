@@ -25,7 +25,7 @@ func _show_map(index: int) -> void:
 	_has_selected_map = true;
 	var map = _get_map_data(maps[ index ].path);
 	Globals.map_data = map;
-	$PlayingArea.load_map();
+	$MapLoader.load_map();
 
 func _start_map(force: bool = false) -> void:
 	if _has_selected_map or force:
@@ -42,7 +42,6 @@ func _download_and_load_map() -> void:
 		return;
 	$HTTPRequest.request($DownloadMenu/FlexBox/URL.text);
 	var returns = await $HTTPRequest.request_completed;
-	var response_code: int = returns[ 1 ];
 	var body: PackedByteArray = returns[ 3 ];
 	var map_data_string: String = body.get_string_from_utf8();
 	var map_json = JSON.parse_string(map_data_string);
@@ -50,3 +49,7 @@ func _download_and_load_map() -> void:
 		return;
 	Globals.map_data = map_json;
 	_start_map(true);
+
+
+func _open_editor() -> void:
+	get_tree().change_scene_to_file("res://scenes/map_editor/map_editor.tscn");

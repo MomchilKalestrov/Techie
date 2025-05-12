@@ -1,0 +1,216 @@
+[gd_scene load_steps=11 format=3 uid="uid://cchft1x3hle41"]
+
+[ext_resource type="Script" uid="uid://llrbojt5iu2n" path="res://scenes/map_editor/map_editor.gd" id="1_p4a8s"]
+[ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="2_14mad"]
+[ext_resource type="Script" uid="uid://fcfudinv23xd" path="res://prefabs/vector_input/vector_input.gd" id="2_to4ta"]
+[ext_resource type="PackedScene" uid="uid://cn88ojr4jkknv" path="res://visual/models/island/island.glb" id="4_j473l"]
+[ext_resource type="Material" uid="uid://d1jdsxri4wokl" path="res://visual/materials/water/water.tres" id="5_bgvkf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p4a8s"]
+
+[sub_resource type="Sky" id="Sky_n67e0"]
+sky_material = SubResource("ProceduralSkyMaterial_p4a8s")
+
+[sub_resource type="Environment" id="Environment_to4ta"]
+background_mode = 2
+sky = SubResource("Sky_n67e0")
+fog_mode = 1
+fog_light_energy = 0.18
+fog_density = 1.0
+adjustment_enabled = true
+adjustment_saturation = 1.1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i0iqq"]
+size = Vector2(100, 100)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j473l"]
+
+[node name="MapEditor" type="Node3D"]
+script = ExtResource("1_p4a8s")
+
+[node name="Container" type="HSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_14mad")
+dragger_visibility = 1
+
+[node name="Divider" type="VSplitContainer" parent="Container"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+dragger_visibility = 1
+
+[node name="NodeListPanel" type="Panel" parent="Container/Divider"]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+
+[node name="FlexBox" type="VBoxContainer" parent="Container/Divider/NodeListPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Container/Divider/NodeListPanel/FlexBox"]
+layout_mode = 2
+text = "Nodes"
+horizontal_alignment = 1
+
+[node name="NodesList" type="ItemList" parent="Container/Divider/NodeListPanel/FlexBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NewNodeButton" type="Button" parent="Container/Divider/NodeListPanel/FlexBox"]
+layout_mode = 2
+text = "New node"
+
+[node name="NodeParametersPanel" type="Panel" parent="Container/Divider"]
+visible = false
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+
+[node name="ScrollBox" type="ScrollContainer" parent="Container/Divider/NodeParametersPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FlexBox" type="VBoxContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BasicDataContainer" type="VBoxContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="Name" type="LineEdit" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
+layout_mode = 2
+text = "Type:"
+
+[node name="Type" type="OptionButton" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PositionLabel" type="Label" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
+layout_mode = 2
+text = "Position:"
+
+[node name="Position" type="HFlowContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2_to4ta")
+max_value = Vector3(10, 10, 10)
+min_value = Vector3(-10, -10, -10)
+metadata/_custom_type_script = "uid://fcfudinv23xd"
+
+[node name="RotationLabel" type="Label" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
+layout_mode = 2
+text = "Rotation:"
+
+[node name="Rotation" type="HFlowContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2_to4ta")
+max_value = Vector3(360, 360, 360)
+min_value = Vector3(-360, -360, -360)
+metadata/_custom_type_script = "uid://fcfudinv23xd"
+
+[node name="BlockadeDataContainer" type="VBoxContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox"]
+layout_mode = 2
+
+[node name="ActivatorLabel" type="Label" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BlockadeDataContainer"]
+layout_mode = 2
+
+[node name="Activator" type="LineEdit" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BlockadeDataContainer"]
+layout_mode = 2
+
+[node name="Window" type="Control" parent="Container"]
+layout_mode = 2
+
+[node name="FlexBox" type="HFlowContainer" parent="Container/Window"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+
+[node name="Back" type="Button" parent="Container/Window/FlexBox"]
+layout_mode = 2
+text = "Back"
+
+[node name="Save" type="Button" parent="Container/Window/FlexBox"]
+layout_mode = 2
+text = "Export"
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 13)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_to4ta")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_blur = 0.5
+directional_shadow_mode = 0
+directional_shadow_split_2 = 0.0
+directional_shadow_split_3 = 0.0
+directional_shadow_max_distance = 8192.0
+directional_shadow_pancake_size = 0.0
+
+[node name="NodeContainer" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="Island" parent="Floor" instance=ExtResource("4_j473l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Water" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("5_bgvkf")
+mesh = SubResource("PlaneMesh_i0iqq")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_j473l")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+access = 1
+
+[connection signal="item_selected" from="Container/Divider/NodeListPanel/FlexBox/NodesList" to="." method="_select_node"]
+[connection signal="button_up" from="Container/Divider/NodeListPanel/FlexBox/NewNodeButton" to="." method="_create_node"]
+[connection signal="text_submitted" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Name" to="." method="_update_name"]
+[connection signal="item_selected" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Type" to="." method="_update_type"]
+[connection signal="vector_changed" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Position" to="." method="_update_node_position"]
+[connection signal="vector_changed" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Rotation" to="." method="_update_node_rotation"]
+[connection signal="button_up" from="Container/Window/FlexBox/Back" to="." method="_back"]
+[connection signal="button_up" from="Container/Window/FlexBox/Save" to="." method="_open_save_dialog"]
+[connection signal="file_selected" from="FileDialog" to="." method="_save"]

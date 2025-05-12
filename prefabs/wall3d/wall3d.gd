@@ -34,3 +34,23 @@ func _ready():
 	wall.add_child(roof);
 	add_child(wall);
 	add_child(mesh);
+
+
+func serialize() -> Dictionary:
+	return {
+		"type": "wall",
+		"position": {
+			"x": position.x,
+			"y": position.y,
+			"z": position.z
+		},
+		"rotation": {
+			"x": rotation_degrees.x,
+			"y": rotation_degrees.y,
+			"z": rotation_degrees.z
+		},
+		"size": {
+			"x": size.x,
+			"y": size.y
+		}
+	};

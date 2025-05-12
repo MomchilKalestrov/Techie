@@ -1,4 +1,5 @@
 @tool
+@icon("res://prefabs/interractable3d/interractable3d.png")
 extends Area3D;
 class_name Interractable3D;
 

@@ -14,8 +14,62 @@
 		}
 	},
 	{
+		"type": "wall",
+		"name": "wall-left-1",
+		"position": {
+			"x": -3.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 90.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 5,
+			"y": 1
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-right-1",
+		"position": {
+			"x": 3.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 90.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 5,
+			"y": 1
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-back-1",
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": -2.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 6,
+			"y": 1
+		}
+	},
+	{
 		"type": "lever",
-		"name": "button-1",
+		"name": "tutorial-lever",
 		"position": {
 			"x": -2.0,
 			"y": 0.0,
@@ -29,62 +83,12 @@
 	},
 	{
 		"type": "blockade",
-		"name": "blockade-1",
-		"activator": "button-1",
+		"name": "tutorial-blockade",
+		"activator": "tutorial-lever",
 		"position": {
-			"x": 2.0,
-			"y": 0.0,
-			"z": 0.0
-		},
-		"rotation": {
-			"x": 0.0,
-			"y": 90.0,
-			"z": 0.0
-		}
-	},
-	{
-		"type": "wall",
-		"name": "wall-1",
-		"position": {
-			"x": -1.0,
-			"y": 0.0,
-			"z": 1.0
-		},
-		"rotation": {
 			"x": 0.0,
 			"y": 0.0,
-			"z": 0.0
-		},
-		"size": {
-			"x": 1,
-			"y": 1
-		}
-	},
-	{
-		"type": "wall",
-		"name": "wall-2",
-		"position": {
-			"x": -2.0,
-			"y": 0.0,
-			"z": 1.0
-		},
-		"rotation": {
-			"x": 0.0,
-			"y": 90,
-			"z": 0.0
-		},
-		"size": {
-			"x": 1,
-			"y": 1
-		}
-	},
-	{
-		"type": "finish",
-		"name": "finish",
-		"position": {
-			"x": -1.0,
-			"y": 0.0,
-			"z": 0.0
+			"z": 2.0
 		},
 		"rotation": {
 			"x": 0.0,

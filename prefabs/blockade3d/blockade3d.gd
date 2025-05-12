@@ -5,11 +5,12 @@ class_name Blockade3D;
 
 const type: String = "Blockade";
 @export var activator: Activator3D;
+var paused: bool = false;
 
 var _blockade: StaticBody3D;
 
 func _ready() -> void:
-	if activator == null:
+	if activator == null and not paused:
 		push_error("Activator cannot be null");
 	
 	var base: Node3D = preload("res://visual/models/blockade/base.glb").instantiate();
@@ -28,4 +29,23 @@ func _ready() -> void:
 	add_child(_blockade);
 
 func _process(delta: float) -> void:
+	if paused:
+		return;
 	_blockade.position.y = lerp(_blockade.position.y, -0.5 if activator.is_active() else 0.5, min(1, 5 * delta));
+
+func serialize() -> Dictionary:
+	return {
+		"type": "blockade",
+		"name": name,
+		"activator": activator.name,
+		"position": {
+			"x": position.x,
+			"y": position.y,
+			"z": position.z
+		},
+		"rotation": {
+			"x": rotation_degrees.x,
+			"y": rotation_degrees.y,
+			"z": rotation_degrees.z
+		}
+	};

@@ -1,29 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8u3jlojyioq3"]
+[gd_scene load_steps=7 format=3 uid="uid://b8u3jlojyioq3"]
 
 [ext_resource type="Script" uid="uid://ceqx6g3gs8vwk" path="res://scenes/playing_area/playing_area.gd" id="1_cxovj"]
-[ext_resource type="PackedScene" uid="uid://cn88ojr4jkknv" path="res://visual/models/island/island.glb" id="2_vba5k"]
 [ext_resource type="PackedScene" uid="uid://quvnk4xrikn7" path="res://scenes/code_editor/code_editor.tscn" id="3_e3miu"]
+[ext_resource type="PackedScene" uid="uid://yn5es25x807f" path="res://scenes/map_loader/map_loader.tscn" id="4_n67e0"]
 [ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="4_vba5k"]
-[ext_resource type="Material" uid="uid://d1jdsxri4wokl" path="res://visual/materials/water/water.tres" id="6_mou72"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_autnx"]
-size = Vector2(100, 100)
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_vba5k"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vba5k"]
-
-[sub_resource type="Sky" id="Sky_n67e0"]
-sky_material = SubResource("ProceduralSkyMaterial_vba5k")
-
-[sub_resource type="Environment" id="Environment_e3miu"]
-background_mode = 2
-sky = SubResource("Sky_n67e0")
-fog_mode = 1
-fog_light_energy = 0.18
-fog_density = 1.0
-adjustment_enabled = true
-adjustment_saturation = 1.1
 
 [sub_resource type="Gradient" id="Gradient_vba5k"]
 offsets = PackedFloat32Array(0.6, 0.61)
@@ -36,33 +16,6 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="PlayingArea" type="Node3D"]
 script = ExtResource("1_cxovj")
-
-[node name="Floor" type="StaticBody3D" parent="."]
-
-[node name="Island" parent="Floor" instance=ExtResource("2_vba5k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-
-[node name="Water" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = ExtResource("6_mou72")
-mesh = SubResource("PlaneMesh_autnx")
-skeleton = NodePath("../..")
-
-[node name="Collision" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("WorldBoundaryShape3D_vba5k")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_e3miu")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
-shadow_enabled = true
-shadow_blur = 0.5
-directional_shadow_mode = 0
-directional_shadow_split_2 = 0.0
-directional_shadow_split_3 = 0.0
-directional_shadow_max_distance = 8192.0
-directional_shadow_pancake_size = 0.0
 
 [node name="SplitContainer" type="HSplitContainer" parent="."]
 anchors_preset = 15
@@ -93,8 +46,4 @@ offset_right = 64.0
 grow_vertical = 0
 texture = SubResource("GradientTexture2D_mou72")
 
-[node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
-
-[node name="Camera" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 13)
+[node name="MapLoader" parent="." instance=ExtResource("4_n67e0")]

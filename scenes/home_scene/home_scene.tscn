@@ -1,13 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwxolw5wcd21s"]
 
 [ext_resource type="Script" uid="uid://bv60ivncyl8n3" path="res://scenes/home_scene/home_scene.gd" id="1_kqkjk"]
-[ext_resource type="PackedScene" uid="uid://b8u3jlojyioq3" path="res://scenes/playing_area/playing_area.tscn" id="2_ba08s"]
+[ext_resource type="PackedScene" uid="uid://yn5es25x807f" path="res://scenes/map_loader/map_loader.tscn" id="2_ba08s"]
 
 [node name="HomeScene" type="Node3D"]
 script = ExtResource("1_kqkjk")
-
-[node name="PlayingArea" parent="." instance=ExtResource("2_ba08s")]
-load_editor = false
 
 [node name="MapsMenu" type="Panel" parent="."]
 anchors_preset = 9
@@ -85,8 +82,25 @@ text = "Download"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
+[node name="Button" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -31.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Editor"
+
+[node name="MapLoader" parent="." instance=ExtResource("2_ba08s")]
+
 [connection signal="item_selected" from="MapsMenu/FlexBox/MapList" to="." method="_show_map"]
 [connection signal="button_up" from="MapsMenu/FlexBox/Run" to="." method="_start_map"]
 [connection signal="button_up" from="MapsMenu/FlexBox/Download" to="." method="_toggle_download_map"]
 [connection signal="button_up" from="DownloadMenu/FlexBox/ButtonsContainer/Back" to="." method="_toggle_download_map"]
 [connection signal="button_up" from="DownloadMenu/FlexBox/ButtonsContainer/Download" to="." method="_download_and_load_map"]
+[connection signal="button_up" from="Button" to="." method="_open_editor"]

@@ -17,6 +17,21 @@ func _ready() -> void:
 	add_child(collision);
 	add_child(mesh);
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	rotation.x = 0.0;
 	rotation.z = 0.0;
+
+func serialize() -> Dictionary:
+	return {
+		"type": "moveable",
+		"position": {
+			"x": position.x,
+			"y": position.y,
+			"z": position.z
+		},
+		"rotation": {
+			"x": rotation_degrees.x,
+			"y": rotation_degrees.y,
+			"z": rotation_degrees.z
+		}
+	};

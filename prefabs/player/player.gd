@@ -1,5 +1,7 @@
 extends CharacterBody3D;
 
+const type: String = "Player";
+
 var has_reached_destination: bool = false;
 
 var _target_position: Vector3 = Vector3.UP;

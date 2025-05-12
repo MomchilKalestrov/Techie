@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://yn5es25x807f"]
+
+[ext_resource type="Script" uid="uid://ifw77ald8573" path="res://scenes/map_loader/map_loader.gd" id="1_dwvgq"]
+[ext_resource type="PackedScene" uid="uid://cn88ojr4jkknv" path="res://visual/models/island/island.glb" id="2_qkvg2"]
+[ext_resource type="Material" uid="uid://d1jdsxri4wokl" path="res://visual/materials/water/water.tres" id="3_kir7g"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oa4c7"]
+size = Vector2(100, 100)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_b50l7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hls1s"]
+
+[sub_resource type="Sky" id="Sky_vba5k"]
+sky_material = SubResource("ProceduralSkyMaterial_hls1s")
+
+[sub_resource type="Environment" id="Environment_qqkrx"]
+background_mode = 2
+sky = SubResource("Sky_vba5k")
+fog_mode = 1
+fog_light_energy = 0.18
+fog_density = 1.0
+adjustment_enabled = true
+adjustment_saturation = 1.1
+
+[node name="MapLoader" type="Node3D"]
+script = ExtResource("1_dwvgq")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="Island" parent="Floor" instance=ExtResource("2_qkvg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Water" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("3_kir7g")
+mesh = SubResource("PlaneMesh_oa4c7")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_b50l7")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qqkrx")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true
+shadow_blur = 0.5
+directional_shadow_mode = 0
+directional_shadow_split_2 = 0.0
+directional_shadow_split_3 = 0.0
+directional_shadow_max_distance = 8192.0
+directional_shadow_pancake_size = 0.0
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 13)
+
+[node name="Nodes" type="Node3D" parent="."]

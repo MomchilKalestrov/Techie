@@ -50,3 +50,18 @@ func _pressed(_body: Node3D) -> void:
 func _released(_body: Node3D) -> void:
 	inactive.emit();
 	_is_pressed = false;
+
+func serialize() -> Dictionary:
+	return {
+		"type": "button",
+		"position": {
+			"x": position.x,
+			"y": position.y,
+			"z": position.z
+		},
+		"rotation": {
+			"x": rotation_degrees.x,
+			"y": rotation_degrees.y,
+			"z": rotation_degrees.z
+		}
+	};

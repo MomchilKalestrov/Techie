@@ -1,0 +1,175 @@
+[
+	{
+		"type": "player",
+		"name": "player",
+		"position": {
+			"x": 0.0,
+			"y": 1.0,
+			"z": -4.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-left-1",
+		"position": {
+			"x": -3.0,
+			"y": 0.0,
+			"z": -2.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 90.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 7,
+			"y": 1
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-right-1",
+		"position": {
+			"x": 3.0,
+			"y": 0.0,
+			"z": -2.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 90.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 7,
+			"y": 1
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-back-1",
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": -5.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 6,
+			"y": 1
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-divide-1",
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 4,
+			"y": 1
+		}
+	},
+	{
+		"type": "button",
+		"name": "button-left",
+		"position": {
+			"x": -2.0,
+			"y": 0.0,
+			"z": -3.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "button",
+		"name": "button-right",
+		"position": {
+			"x": 2.0,
+			"y": 0.0,
+			"z": -3.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "blockade",
+		"name": "blockade-left",
+		"activator": "button-left",
+		"position": {
+			"x": -1.5,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "blockade",
+		"name": "blockade-right",
+		"activator": "button-right",
+		"position": {
+			"x": 1.5,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "lever",
+		"name": "final-lever",
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 2.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "blockade",
+		"name": "final-blockade",
+		"activator": "final-lever",
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 4.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		}
+	}
+]
