@@ -4,3 +4,5 @@
 
 [resource]
 CodeEdit/fonts/font = ExtResource("1_pe6q4")
+HSplitContainer/constants/separation = 8
+VSplitContainer/constants/separation = 8

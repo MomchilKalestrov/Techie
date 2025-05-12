@@ -107,9 +107,9 @@ func _update_type(index: int) -> void:
 func _back() -> void:
 	get_tree().change_scene_to_file("res://scenes/home_scene/home_scene.tscn");
 
-func _update_activator_name(name: String) -> void:
+func _update_activator_name(node_name: String) -> void:
 	var placeholder_activator: Activator3D = Activator3D.new();
-	placeholder_activator.name = name;
+	placeholder_activator.name = node_name;
 	var blockade: Blockade3D = _current_chosen_node as Blockade3D;
 	blockade.activator = placeholder_activator;
 
