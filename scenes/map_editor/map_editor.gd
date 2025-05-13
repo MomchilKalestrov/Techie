@@ -32,7 +32,7 @@ func _update_properties_panel(node: Node3D) -> void:
 		data_container.visible = false;
 	data_containers.get_node("BasicDataContainer").visible = true;
 	
-	var node_data_container = data_containers.get_node(node.type + "DataContainer");
+	var node_data_container = Globals.try_get_node(data_containers, node.type + "DataContainer");
 	if node_data_container != null:
 		node_data_container.visible = true;
 	match node.type:
@@ -47,6 +47,7 @@ func _select_node(index: int) -> void:
 	await get_tree().process_frame;
 	_current_chosen_node = _nodes[ _list.get_item_text(index) ];
 	$Container/Divider/NodeParametersPanel.visible = true;
+	$Selector.global_position = _current_chosen_node.global_position;
 	_update_properties_panel(_current_chosen_node);
 
 func _generate_random_id() -> String:
@@ -76,6 +77,7 @@ func _update_name(node_name: String) -> void:
 
 func _update_node_position(vector: Vector3) -> void:
 	_current_chosen_node.position = vector;
+	$Selector.global_position = _current_chosen_node.global_position;
 
 func _update_node_rotation(vector: Vector3) -> void:
 	_current_chosen_node.global_rotation_degrees = vector;
@@ -100,7 +102,10 @@ func _update_type(index: int) -> void:
 	new_node.name = node_name;
 	new_node.position = node_position;
 	new_node.rotation_degrees = node_rotation_degrees;
+	if new_node is RigidBody3D:
+		new_node.freeze = true;
 	new_node.set_process(false);
+	new_node.set_process_internal(false)
 	
 	_refresh_list();
 	_update_properties_panel(new_node);

@@ -21,6 +21,8 @@ fog_mode = 1
 fog_light_energy = 0.18
 fog_density = 1.0
 adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 1.1
 adjustment_saturation = 1.1
 
 [node name="MapLoader" type="Node3D"]
@@ -43,16 +45,6 @@ shape = SubResource("WorldBoundaryShape3D_b50l7")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qqkrx")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
-shadow_enabled = true
-shadow_blur = 0.5
-directional_shadow_mode = 0
-directional_shadow_split_2 = 0.0
-directional_shadow_split_3 = 0.0
-directional_shadow_max_distance = 8192.0
-directional_shadow_pancake_size = 0.0
-
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 
@@ -60,3 +52,13 @@ transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 13)
 
 [node name="Nodes" type="Node3D" parent="."]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_split_2 = 0.0
+directional_shadow_split_3 = 0.0
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 20.0
+directional_shadow_pancake_size = 0.0

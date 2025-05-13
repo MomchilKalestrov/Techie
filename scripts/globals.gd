@@ -29,3 +29,8 @@ func instantiate_class(c_name: String) -> Object:
 			result = (script as GDScript).new()
 	
 	return result;
+
+func try_get_node(node: Node, path: String) -> Variant:
+	if node.has_node(path):
+		return node.get_node(path);
+	return null;

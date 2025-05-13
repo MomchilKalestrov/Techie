@@ -1,30 +1,19 @@
-[gd_scene load_steps=12 format=3 uid="uid://cchft1x3hle41"]
+[gd_scene load_steps=8 format=3 uid="uid://cchft1x3hle41"]
 
 [ext_resource type="Script" uid="uid://llrbojt5iu2n" path="res://scenes/map_editor/map_editor.gd" id="1_p4a8s"]
 [ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="2_14mad"]
 [ext_resource type="Script" uid="uid://fcfudinv23xd" path="res://prefabs/vector3_input/vector3_input.gd" id="2_to4ta"]
 [ext_resource type="Script" uid="uid://bk64ye3w242x" path="res://prefabs/vector2_input/vector2_input.gd" id="4_bgvkf"]
-[ext_resource type="PackedScene" uid="uid://cn88ojr4jkknv" path="res://visual/models/island/island.glb" id="4_j473l"]
-[ext_resource type="Material" uid="uid://d1jdsxri4wokl" path="res://visual/materials/water/water.tres" id="5_bgvkf"]
+[ext_resource type="PackedScene" uid="uid://yn5es25x807f" path="res://scenes/map_loader/map_loader.tscn" id="5_j473l"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p4a8s"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bgvkf"]
+no_depth_test = true
+shading_mode = 0
 
-[sub_resource type="Sky" id="Sky_n67e0"]
-sky_material = SubResource("ProceduralSkyMaterial_p4a8s")
-
-[sub_resource type="Environment" id="Environment_to4ta"]
-background_mode = 2
-sky = SubResource("Sky_n67e0")
-fog_mode = 1
-fog_light_energy = 0.18
-fog_density = 1.0
-adjustment_enabled = true
-adjustment_saturation = 1.1
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_i0iqq"]
-size = Vector2(100, 100)
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j473l"]
+[sub_resource type="SphereMesh" id="SphereMesh_l06n5"]
+material = SubResource("StandardMaterial3D_bgvkf")
+radius = 0.125
+height = 0.25
 
 [node name="MapEditor" type="Node3D"]
 script = ExtResource("1_p4a8s")
@@ -187,44 +176,17 @@ text = "Back"
 layout_mode = 2
 text = "Export"
 
-[node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
-
-[node name="Camera" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 13)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_to4ta")
-
-[node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
-shadow_enabled = true
-shadow_blur = 0.5
-directional_shadow_mode = 0
-directional_shadow_split_2 = 0.0
-directional_shadow_split_3 = 0.0
-directional_shadow_max_distance = 8192.0
-directional_shadow_pancake_size = 0.0
-
 [node name="NodeContainer" type="Node3D" parent="."]
-
-[node name="Floor" type="StaticBody3D" parent="."]
-
-[node name="Island" parent="Floor" instance=ExtResource("4_j473l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-
-[node name="Water" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = ExtResource("5_bgvkf")
-mesh = SubResource("PlaneMesh_i0iqq")
-skeleton = NodePath("../..")
-
-[node name="Collision" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("WorldBoundaryShape3D_j473l")
 
 [node name="FileDialog" type="FileDialog" parent="."]
 root_subfolder = "maps"
 filters = PackedStringArray("*.json")
+
+[node name="Selector" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.87931, 10.1897)
+mesh = SubResource("SphereMesh_l06n5")
+
+[node name="MapLoader" parent="." instance=ExtResource("5_j473l")]
 
 [connection signal="item_selected" from="Container/Divider/NodeListPanel/FlexBox/NodesList" to="." method="_select_node"]
 [connection signal="button_up" from="Container/Divider/NodeListPanel/FlexBox/NewNodeButton" to="." method="_create_node"]
