@@ -19,7 +19,12 @@ func _ready() -> void:
 
 func _finish(body: Node3D) -> void:
 	if body is CharacterBody3D:
-		print("FINISH");
+		var confetti: Node3D = preload("res://prefabs/finish3d/confetti.tscn").instantiate();
+		add_child(confetti);
+		for child in confetti.get_children():
+			child.emitting = true;
+		await confetti.get_node("Red").finished;
+		confetti.queue_free();
 
 func serialize() -> Dictionary:
 	return {

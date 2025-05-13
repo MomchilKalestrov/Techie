@@ -61,8 +61,8 @@ size_flags_stretch_ratio = 0.0
 [node name="Ide" type="CodeEdit" parent="Main"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "await turnRight();
-interract();"
+text = "await turnLeft();
+await moveForwards();"
 syntax_highlighter = SubResource("CodeHighlighter_j6ccg")
 gutters_draw_line_numbers = true
 code_completion_enabled = true

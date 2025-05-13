@@ -1,0 +1,152 @@
+[gd_scene load_steps=10 format=3 uid="uid://jpy08usn0cnc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r4y2v"]
+cull_mode = 2
+albedo_color = Color(1, 0.2, 0.2, 1)
+
+[sub_resource type="PlaneMesh" id="BoxMesh_uf24n"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_b6gtv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_5vvly"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.501961, 1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fa7ix"]
+cull_mode = 2
+albedo_color = Color(0.2, 1, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j03q"]
+cull_mode = 2
+albedo_color = Color(0.2, 0.2, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvb7f"]
+cull_mode = 2
+albedo_color = Color(1, 1, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxfhu"]
+cull_mode = 2
+albedo_color = Color(1, 0.2, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o26u8"]
+cull_mode = 2
+albedo_color = Color(0.2, 1, 1, 1)
+
+[node name="Confetti" type="Node3D"]
+
+[node name="Red" type="CPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_r4y2v")
+emitting = false
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_uf24n")
+direction = Vector3(0, 1, 0)
+spread = 7.5
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_max = 5.0
+damping_min = 0.1
+damping_max = 0.3
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_b6gtv")
+color_ramp = SubResource("Gradient_5vvly")
+
+[node name="Green" type="CPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_fa7ix")
+emitting = false
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_uf24n")
+direction = Vector3(0, 1, 0)
+spread = 7.5
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_max = 5.0
+damping_min = 0.1
+damping_max = 0.3
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_b6gtv")
+color_ramp = SubResource("Gradient_5vvly")
+
+[node name="Blue" type="CPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_3j03q")
+emitting = false
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_uf24n")
+direction = Vector3(0, 1, 0)
+spread = 7.5
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_max = 5.0
+damping_min = 0.1
+damping_max = 0.3
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_b6gtv")
+color_ramp = SubResource("Gradient_5vvly")
+
+[node name="Yellow" type="CPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_mvb7f")
+emitting = false
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_uf24n")
+direction = Vector3(0, 1, 0)
+spread = 7.5
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_max = 5.0
+damping_min = 0.1
+damping_max = 0.3
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_b6gtv")
+color_ramp = SubResource("Gradient_5vvly")
+
+[node name="Purple" type="CPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_kxfhu")
+emitting = false
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_uf24n")
+direction = Vector3(0, 1, 0)
+spread = 7.5
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_max = 5.0
+damping_min = 0.1
+damping_max = 0.3
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_b6gtv")
+color_ramp = SubResource("Gradient_5vvly")
+
+[node name="Cyan" type="CPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_o26u8")
+emitting = false
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_uf24n")
+direction = Vector3(0, 1, 0)
+spread = 7.5
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_max = 5.0
+damping_min = 0.1
+damping_max = 0.3
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_b6gtv")
+color_ramp = SubResource("Gradient_5vvly")

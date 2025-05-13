@@ -27,13 +27,14 @@ func _format_file_names(names: Array[ String ]) -> Dictionary[ String, String ]:
 	var formatted_names: Dictionary[ String, String ] = {};
 	
 	for map_name in names:
-		var formatted_name = map_name.split(".")[ 0 ].capitalize();
+		var formatted_name = ".".join(map_name.split(".").slice(0, -1)).capitalize();
 		formatted_names[ formatted_name ] = map_name;
 	
 	return formatted_names;
 
 func _load_maps() -> void:
 	var map_paths: Array[ String ] = _get_all_files("res://maps");
+	map_paths.sort();
 	var names: Dictionary[ String, String ] = _format_file_names(map_paths);
 	maps = names;
 	

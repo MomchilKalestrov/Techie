@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 	if velocity == Vector3.ZERO and not has_reached_destination:
 		has_reached_destination = true;
 		NodeJs.send_next_command();
-	elif  snappedf(target_rotation, 0.01) == snappedf(rotation_degrees.y, 0.01) and not has_reached_rotation:
+	elif snappedf(target_rotation, 0.01) == snappedf(rotation_degrees.y, 0.01) and not has_reached_rotation:
 		has_reached_rotation = true;
 		NodeJs.send_next_command();
 	
@@ -50,7 +50,6 @@ func _physics_process(delta: float) -> void:
 		var collider = collision.get_collider();
 		if collider is RigidBody3D:
 			collider.apply_force(collision.get_normal() * -15);
-
 
 func _facing_wall(body: Node3D) -> void:
 	_is_facing_wall = body is Wall3D or _is_facing_wall;
