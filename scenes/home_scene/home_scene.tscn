@@ -82,7 +82,7 @@ text = "Download"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
-[node name="Button" type="Button" parent="."]
+[node name="EditorButton" type="Button" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -103,4 +103,4 @@ text = "Editor"
 [connection signal="button_up" from="MapsMenu/FlexBox/Download" to="." method="_toggle_download_map"]
 [connection signal="button_up" from="DownloadMenu/FlexBox/ButtonsContainer/Back" to="." method="_toggle_download_map"]
 [connection signal="button_up" from="DownloadMenu/FlexBox/ButtonsContainer/Download" to="." method="_download_and_load_map"]
-[connection signal="button_up" from="Button" to="." method="_open_editor"]
+[connection signal="button_up" from="EditorButton" to="." method="_open_editor"]

@@ -123,6 +123,7 @@ text = "Position:"
 [node name="Position" type="HFlowContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+alignment = 1
 script = ExtResource("2_to4ta")
 max_value = Vector3(10, 10, 10)
 min_value = Vector3(-10, -10, -10)
@@ -135,6 +136,7 @@ text = "Rotation:"
 [node name="Rotation" type="HFlowContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+alignment = 1
 script = ExtResource("2_to4ta")
 max_value = Vector3(360, 360, 360)
 min_value = Vector3(-360, -360, -360)
@@ -203,7 +205,8 @@ skeleton = NodePath("../..")
 shape = SubResource("WorldBoundaryShape3D_j473l")
 
 [node name="FileDialog" type="FileDialog" parent="."]
-access = 1
+root_subfolder = "maps"
+filters = PackedStringArray("*.json")
 
 [connection signal="item_selected" from="Container/Divider/NodeListPanel/FlexBox/NodesList" to="." method="_select_node"]
 [connection signal="button_up" from="Container/Divider/NodeListPanel/FlexBox/NewNodeButton" to="." method="_create_node"]

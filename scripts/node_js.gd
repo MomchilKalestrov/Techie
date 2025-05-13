@@ -49,7 +49,7 @@ func _process(_delta: float) -> void:
 		var value = token.split(":")[ 1 ];
 		match action:
 			"call":
-				var function = value.split("?")[ 0 ] if "?" in value else value;
+				var function: String = value.split("?")[ 0 ] if "?" in value else value;
 				var parameter = value.split("?")[ 1 ] if "?" in value else null;
 				if function in functions:
 					var returnValue = functions[ function ].call(parameter) if parameter != null else functions[ function ].call();

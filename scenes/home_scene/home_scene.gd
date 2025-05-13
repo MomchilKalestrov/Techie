@@ -1,29 +1,55 @@
 extends Node3D;
 
-var maps: Array[ Variant ];
+var maps: Dictionary[ String, String ];
 
 var _has_selected_map: bool = false;
 
 func _ready() -> void:
 	_load_maps();
 
+func _get_all_files(path: String) -> Array[ String ]:
+	var files: Array[ String ] = [];
+	
+	var dir = DirAccess.open(path);
+	if dir == null:
+		return files;
+	
+	dir.list_dir_begin();
+	var element_name = dir.get_next();
+	while element_name != "":
+		if not dir.current_is_dir():
+			files.push_front(element_name);
+		element_name = dir.get_next();
+	
+	return files;
+
+func _format_file_names(names: Array[ String ]) -> Dictionary[ String, String ]:
+	var formatted_names: Dictionary[ String, String ] = {};
+	
+	for map_name in names:
+		var formatted_name = map_name.split(".")[ 0 ].capitalize();
+		formatted_names[ formatted_name ] = map_name;
+	
+	return formatted_names;
+
 func _load_maps() -> void:
-	var maps_file: FileAccess = FileAccess.open("res://maps/maps.json", FileAccess.READ);
-	maps = JSON.parse_string(maps_file.get_as_text());
+	var map_paths: Array[ String ] = _get_all_files("res://maps");
+	var names: Dictionary[ String, String ] = _format_file_names(map_paths);
+	maps = names;
 	
 	var list: ItemList = $MapsMenu/FlexBox/MapList;
-	for map in maps:
-		list.add_item(map.name);
+	for map in maps.keys():
+		list.add_item(map);
 
 func _get_map_data(path: String) -> Array:
-	var map_file: FileAccess = FileAccess.open(path, FileAccess.READ);
+	var map_file: FileAccess = FileAccess.open("res://maps/" + path, FileAccess.READ);
 	var map_data_string: String = map_file.get_as_text();
 	var map_json = JSON.parse_string(map_data_string);
 	return map_json;
 
 func _show_map(index: int) -> void:
 	_has_selected_map = true;
-	var map = _get_map_data(maps[ index ].path);
+	var map = _get_map_data(maps[ maps.keys()[ index ] ]);
 	Globals.map_data = map;
 	$MapLoader.load_map();
 
