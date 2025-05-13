@@ -13,6 +13,10 @@ const _node_types: Array[ String ] = [
 	"Wall"
 ];
 
+const _scene_types: Dictionary[ String, PackedScene ] = {
+	"Player": preload("res://prefabs/player/player.tscn")
+};
+
 func _ready() -> void:
 	for node_type in _node_types:
 		%Type.add_item(node_type);
@@ -68,28 +72,19 @@ func _update_node_position(vector: Vector3) -> void:
 func _update_node_rotation(vector: Vector3) -> void:
 	_current_chosen_node.global_rotation_degrees = vector;
 
+
 func _update_type(index: int) -> void:
 	# save the current base state
 	var node_name: String = String(_current_chosen_node.name);
 	var node_position: Vector3 = _current_chosen_node.position;
 	var node_rotation_degrees: Vector3 = _current_chosen_node.rotation_degrees;
 	
+	var type: String = _node_types[ index ];
 	var new_node: Node3D;
-	match _node_types[ index ]:
-		"Blockade":
-			new_node = Blockade3D.new();
-		"Button":
-			new_node = Button3D.new();
-		"Finish":
-			new_node = Finish3D.new();
-		"Lever":
-			new_node = Lever3D.new();
-		"Moveable":
-			new_node = Moveable3D.new();
-		"Player":
-			new_node = preload("res://prefabs/player/player.tscn").instantiate();
-		"Wall":
-			new_node = Wall3D.new();
+	if type in _scene_types:
+		new_node = _scene_types[ type ].instantiate();
+	else:
+		new_node = Globals.instantiate_class(type + "3D");
 	
 	_current_chosen_node.queue_free();
 	$NodeContainer.add_child(new_node);
@@ -98,6 +93,7 @@ func _update_type(index: int) -> void:
 	new_node.name = node_name;
 	new_node.position = node_position;
 	new_node.rotation_degrees = node_rotation_degrees;
+	new_node.set_process(false);
 	if "paused" in new_node:
 		new_node.paused = true;
 	

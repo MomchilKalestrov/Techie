@@ -5,12 +5,11 @@ class_name Blockade3D;
 
 const type: String = "Blockade";
 @export var activator: Activator3D;
-var paused: bool = false;
 
 var _blockade: StaticBody3D;
 
 func _ready() -> void:
-	if activator == null and not paused:
+	if activator == null:
 		push_error("Activator cannot be null");
 	
 	var base: Node3D = preload("res://visual/models/blockade/base.glb").instantiate();
@@ -29,8 +28,6 @@ func _ready() -> void:
 	add_child(_blockade);
 
 func _process(delta: float) -> void:
-	if paused:
-		return;
 	_blockade.position.y = lerp(_blockade.position.y, -0.5 if activator.is_active() else 0.5, min(1, 5 * delta));
 
 func serialize() -> Dictionary:
