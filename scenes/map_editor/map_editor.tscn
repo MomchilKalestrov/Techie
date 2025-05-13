@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cchft1x3hle41"]
+[gd_scene load_steps=12 format=3 uid="uid://cchft1x3hle41"]
 
 [ext_resource type="Script" uid="uid://llrbojt5iu2n" path="res://scenes/map_editor/map_editor.gd" id="1_p4a8s"]
 [ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="2_14mad"]
-[ext_resource type="Script" uid="uid://fcfudinv23xd" path="res://prefabs/vector_input/vector_input.gd" id="2_to4ta"]
+[ext_resource type="Script" uid="uid://fcfudinv23xd" path="res://prefabs/vector3_input/vector3_input.gd" id="2_to4ta"]
+[ext_resource type="Script" uid="uid://bk64ye3w242x" path="res://prefabs/vector2_input/vector2_input.gd" id="4_bgvkf"]
 [ext_resource type="PackedScene" uid="uid://cn88ojr4jkknv" path="res://visual/models/island/island.glb" id="4_j473l"]
 [ext_resource type="Material" uid="uid://d1jdsxri4wokl" path="res://visual/materials/water/water.tres" id="5_bgvkf"]
 
@@ -147,9 +148,26 @@ layout_mode = 2
 
 [node name="ActivatorLabel" type="Label" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BlockadeDataContainer"]
 layout_mode = 2
+text = "Activator:"
 
 [node name="Activator" type="LineEdit" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BlockadeDataContainer"]
 layout_mode = 2
+
+[node name="WallDataContainer" type="VBoxContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox"]
+layout_mode = 2
+
+[node name="SizeLabel" type="Label" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/WallDataContainer"]
+layout_mode = 2
+text = "Size:"
+
+[node name="Size" type="HFlowContainer" parent="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/WallDataContainer"]
+layout_mode = 2
+alignment = 1
+script = ExtResource("4_bgvkf")
+value = Vector2(1, 1)
+max_value = Vector2(20, 20)
+min_value = Vector2(1, 1)
+metadata/_custom_type_script = "uid://bk64ye3w242x"
 
 [node name="Window" type="Control" parent="Container"]
 layout_mode = 2
@@ -214,6 +232,8 @@ filters = PackedStringArray("*.json")
 [connection signal="item_selected" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Type" to="." method="_update_type"]
 [connection signal="vector_changed" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Position" to="." method="_update_node_position"]
 [connection signal="vector_changed" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Rotation" to="." method="_update_node_rotation"]
+[connection signal="text_submitted" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BlockadeDataContainer/Activator" to="." method="_update_activator_name"]
+[connection signal="vector_changed" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/WallDataContainer/Size" to="." method="_update_size"]
 [connection signal="button_up" from="Container/Window/FlexBox/Back" to="." method="_back"]
 [connection signal="button_up" from="Container/Window/FlexBox/Save" to="." method="_open_save_dialog"]
 [connection signal="file_selected" from="FileDialog" to="." method="_save"]

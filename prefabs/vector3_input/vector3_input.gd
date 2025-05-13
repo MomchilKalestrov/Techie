@@ -1,7 +1,7 @@
 @tool
-@icon("res://prefabs/vector_input/vector_input.png")
+@icon("res://prefabs/vector3_input/vector3_input.png")
 extends HFlowContainer;
-class_name VectorInput;
+class_name Vector3Input;
 
 var _x_input: SpinBox = SpinBox.new();
 var _y_input: SpinBox = SpinBox.new();

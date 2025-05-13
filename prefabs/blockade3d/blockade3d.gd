@@ -4,13 +4,12 @@ extends Node3D;
 class_name Blockade3D;
 
 const type: String = "Blockade";
-@export var activator: Activator3D;
+var activator: Activator3D = Activator3D.new();
 
 var _blockade: StaticBody3D;
 
 func _ready() -> void:
-	if activator == null:
-		push_error("Activator cannot be null");
+	activator.name = "null";
 	
 	var base: Node3D = preload("res://visual/models/blockade/base.glb").instantiate();
 	
