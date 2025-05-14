@@ -36,7 +36,6 @@ func try_get_node(node: Node, path: String) -> Variant:
 	return null;
 
 func set_map_node_state(node: Node3D, state: Variant) -> void:
-	print(node, state)
 	node.position = Vector3(
 		state.position.x,
 		state.position.y,
@@ -48,3 +47,14 @@ func set_map_node_state(node: Node3D, state: Variant) -> void:
 		state.rotation.z
 	);
 	node.name = state.name;
+	
+	match state.type:
+		"wall":
+			node.size = Vector2(state.size.x, state.size.y);
+		"player":
+			node.target_position = Vector3(
+				state.position.x,
+				state.position.y,
+				state.position.z
+			);
+			node.target_rotation = state.rotation.y;

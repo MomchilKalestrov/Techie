@@ -7,6 +7,8 @@ const type: String = "Moveable";
 const save_state: bool = true;
 
 func _ready() -> void:
+	lock_rotation = true;
+	
 	var collision: CollisionShape3D = CollisionShape3D.new();
 	collision.shape = BoxShape3D.new();
 	
@@ -16,10 +18,6 @@ func _ready() -> void:
 	
 	add_child(collision);
 	add_child(mesh);
-
-func _physics_process(_delta: float) -> void:
-	rotation.x = 0.0;
-	rotation.z = 0.0;
 
 func serialize() -> Dictionary:
 	return {

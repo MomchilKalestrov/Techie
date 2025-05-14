@@ -1,7 +1,5 @@
 extends Node3D;
 
-var _node_states: Dictionary[ int, Variant ] = {};
-
 func _ready() -> void:
 	load_map();
 	Globals.world = self;
@@ -9,7 +7,6 @@ func _ready() -> void:
 func load_map() -> void:
 	_load_world();
 	await get_tree().process_frame;
-	_save_state();
 
 func _load_world() -> void:
 	for child in $Nodes.get_children():
@@ -25,7 +22,6 @@ func _load_world() -> void:
 				var wall: Wall3D = Wall3D.new();
 				$Nodes.add_child(wall);
 				Globals.set_map_node_state(wall, node);
-				wall.size = Vector2(node.size.x, node.size.y);
 			"button":
 				var button: Button3D = Button3D.new();
 				$Nodes.add_child(button);
@@ -37,12 +33,6 @@ func _load_world() -> void:
 				var player = preload("res://prefabs/player/player.tscn").instantiate();
 				$Nodes.add_child(player);
 				Globals.set_map_node_state(player, node);
-				player.target_position = Vector3(
-					node.position.x,
-					node.position.y,
-					node.position.z
-				);
-				player.target_rotation = node.rotation.y;
 			"lever":
 				var lever: Lever3D = Lever3D.new();
 				$Nodes.add_child(lever);
@@ -70,20 +60,5 @@ func _load_world() -> void:
 		
 		$Nodes.add_child(blockade);
 
-func _save_state() -> void:
-	_node_states = {};
-	for child_index in $Nodes.get_child_count():
-		var child: Node = $Nodes.get_child(child_index);
-		if "save_state" in child:
-			_node_states[ child_index ] = child.duplicate();
-
 func reset() -> void:
-	for child_state in _node_states.values():
-		for child in $Nodes.get_children():
-			if child_state.name == child.name:
-				child.queue_free();
-				await get_tree().process_frame;
-				add_child(child_state);
-			elif child is Lever3D and child.is_active():
-				child._interracted(); # disable the activated levers
-	_save_state();
+	load_map();

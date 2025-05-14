@@ -64,7 +64,6 @@ func _not_facing_wall(_body: Node3D) -> void:
 	_is_facing_wall = false;
 
 func move_forwards() -> void:
-	print(target_position)
 	target_position += Vector3.FORWARD.rotated(Vector3.UP, rotation.y);
 
 func move_backwards() -> void:

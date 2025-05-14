@@ -167,21 +167,12 @@ func _load_map(path: String) -> void:
 			new_node = _scene_types[ type ].instantiate();
 		else:
 			new_node = Globals.instantiate_class(type + "3D");
-		Globals.set_map_node_state(new_node, node_data);
+		$NodeContainer.add_child(new_node);
 		
+		Globals.set_map_node_state(new_node, node_data);
 		match type:
-			"Wall":
-				new_node.size = Vector2(node_data.size.x, node_data.size.y);
 			"Blockade":
 				new_node.activator.name = node_data.activator;
-				print(new_node.activator, new_node.activator.name)
-			"Player":
-				new_node.target_position = Vector3(
-					node_data.position.x,
-					node_data.position.y,
-					node_data.position.z
-				);
-				new_node.target_rotation = node_data.rotation.y;
 		
 		if new_node is RigidBody3D:
 			new_node.freeze = true;
@@ -190,7 +181,6 @@ func _load_map(path: String) -> void:
 		new_node.set_physics_process(false);
 		new_node.set_physics_process_internal(false);
 		
-		$NodeContainer.add_child(new_node);
 	_refresh_list();
 
 func _delete_node() -> void:
