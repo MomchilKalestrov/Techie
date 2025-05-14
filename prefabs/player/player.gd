@@ -4,7 +4,7 @@ const type: String = "Player";
 
 var has_reached_destination: bool = false;
 
-var _target_position: Vector3 = Vector3.UP;
+var _target_position: Vector3;
 var target_position: Vector3:
 	get:
 		return _target_position;
@@ -28,6 +28,7 @@ const save_state: bool = true;
 
 func _ready() -> void:
 	Globals.player = self;
+	_target_position = global_position;
 
 func _physics_process(delta: float) -> void:
 	rotation_degrees.y = lerp(rotation_degrees.y, target_rotation, min(1, delta * 10));
@@ -63,6 +64,7 @@ func _not_facing_wall(_body: Node3D) -> void:
 	_is_facing_wall = false;
 
 func move_forwards() -> void:
+	print(target_position)
 	target_position += Vector3.FORWARD.rotated(Vector3.UP, rotation.y);
 
 func move_backwards() -> void:

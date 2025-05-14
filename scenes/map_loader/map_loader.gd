@@ -110,6 +110,7 @@ func _load_world() -> void:
 					node.position.y,
 					node.position.z
 				);
+				player.target_rotation = node.rotation.y;
 			"lever":
 				var lever: Lever3D = Lever3D.new();
 				$Nodes.add_child(lever);
