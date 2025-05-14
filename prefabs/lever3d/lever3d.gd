@@ -37,6 +37,7 @@ func is_active() -> bool:
 func serialize() -> Dictionary:
 	return {
 		"type": "lever",
+		"name": name,
 		"position": {
 			"x": position.x,
 			"y": position.y,

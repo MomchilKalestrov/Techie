@@ -9,7 +9,8 @@ var activator: Activator3D = Activator3D.new();
 var _blockade: StaticBody3D;
 
 func _ready() -> void:
-	activator.name = "null";
+	if activator.name == null:
+		activator.name = "null";
 	
 	var base: Node3D = preload("res://visual/models/blockade/base.glb").instantiate();
 	

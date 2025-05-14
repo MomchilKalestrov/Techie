@@ -45,7 +45,7 @@ func _load_maps() -> void:
 func _get_map_data(path: String) -> Array:
 	var map_file: FileAccess = FileAccess.open("res://maps/" + path, FileAccess.READ);
 	var map_data_string: String = map_file.get_as_text();
-	var map_json = JSON.parse_string(map_data_string);
+	var map_json: Array = JSON.parse_string(map_data_string);
 	return map_json;
 
 func _show_map(index: int) -> void:
@@ -79,4 +79,5 @@ func _download_and_load_map() -> void:
 
 
 func _open_editor() -> void:
+	Globals.map_data = [];
 	get_tree().change_scene_to_file("res://scenes/map_editor/map_editor.tscn");

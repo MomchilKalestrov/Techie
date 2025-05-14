@@ -29,6 +29,7 @@ func _finish(body: Node3D) -> void:
 func serialize() -> Dictionary:
 	return {
 		"type": "finish",
+		"name": name,
 		"position": {
 			"x": position.x,
 			"y": position.y,

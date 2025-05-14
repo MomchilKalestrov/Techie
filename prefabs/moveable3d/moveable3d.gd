@@ -24,6 +24,7 @@ func _physics_process(_delta: float) -> void:
 func serialize() -> Dictionary:
 	return {
 		"type": "moveable",
+		"name": name,
 		"position": {
 			"x": position.x,
 			"y": position.y,

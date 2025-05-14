@@ -1,0 +1,102 @@
+[
+	{
+		"type": "wall",
+		"name": "wall-up",
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": -1.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 8.0,
+			"y": 1.0
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-down",
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 1.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 8.0,
+			"y": 1.0
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-right",
+		"position": {
+			"x": 4.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 3.0
+		}
+	},
+	{
+		"type": "wall",
+		"name": "wall-left",
+		"position": {
+			"x": -4.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 3.0
+		}
+	},
+	{
+		"type": "player",
+		"name": "player",
+		"position": {
+			"x": -3.0,
+			"y": 1.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": -90.0,
+			"z": 0.0
+		}
+	},
+	{
+		"type": "finish",
+		"name": "finish",
+		"position": {
+			"x": 3.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": -90.0,
+			"z": 0.0
+		}
+	}
+]

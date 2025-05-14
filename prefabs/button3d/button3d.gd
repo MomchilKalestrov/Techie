@@ -54,6 +54,7 @@ func _released(_body: Node3D) -> void:
 func serialize() -> Dictionary:
 	return {
 		"type": "button",
+		"name": name,
 		"position": {
 			"x": position.x,
 			"y": position.y,

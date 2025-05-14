@@ -17,7 +17,7 @@ var _collision: CollisionShape3D = CollisionShape3D.new();
 var _mesh: MeshInstance3D = MeshInstance3D.new();
 var _roof: MeshInstance3D = MeshInstance3D.new();
 
-func _ready():
+func _init():
 	var wall: StaticBody3D = StaticBody3D.new();
 	wall.position.y = 0.25;
 	
@@ -54,6 +54,7 @@ func _update_size(new_size: Vector2) -> void:
 func serialize() -> Dictionary:
 	return {
 		"type": "wall",
+		"name": name,
 		"position": {
 			"x": position.x,
 			"y": position.y,

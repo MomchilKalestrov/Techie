@@ -84,3 +84,19 @@ func interract() -> void:
 
 func is_facing_wall() -> bool:
 	return _is_facing_wall;
+
+func serialize() -> Dictionary:
+	return {
+		"type": "player",
+		"name": name,
+		"position": {
+			"x": position.x,
+			"y": position.y,
+			"z": position.z
+		},
+		"rotation": {
+			"x": rotation_degrees.x,
+			"y": rotation_degrees.y,
+			"z": rotation_degrees.z
+		}
+	};

@@ -70,9 +70,18 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NewNodeButton" type="Button" parent="Container/Divider/NodeListPanel/FlexBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Divider/NodeListPanel/FlexBox"]
 layout_mode = 2
+
+[node name="NewNodeButton" type="Button" parent="Container/Divider/NodeListPanel/FlexBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "New node"
+
+[node name="DeleteNodeButton" type="Button" parent="Container/Divider/NodeListPanel/FlexBox/HBoxContainer"]
+custom_minimum_size = Vector2(31, 0)
+layout_mode = 2
+text = "X"
 
 [node name="NodeParametersPanel" type="Panel" parent="Container/Divider"]
 visible = false
@@ -170,20 +179,34 @@ metadata/_custom_type_script = "uid://bk64ye3w242x"
 [node name="Window" type="Control" parent="Container"]
 layout_mode = 2
 
-[node name="FlexBox" type="HFlowContainer" parent="Container/Window"]
+[node name="Panel" type="Panel" parent="Container/Window"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 39.0
+grow_horizontal = 2
+
+[node name="FlexBox" type="HBoxContainer" parent="Container/Window/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 122.0
 offset_bottom = 31.0
 grow_horizontal = 2
 
-[node name="Back" type="Button" parent="Container/Window/FlexBox"]
+[node name="Back" type="Button" parent="Container/Window/Panel/FlexBox"]
 layout_mode = 2
 text = "Back"
 
-[node name="Save" type="Button" parent="Container/Window/FlexBox"]
+[node name="Load" type="Button" parent="Container/Window/Panel/FlexBox"]
 layout_mode = 2
-text = "Export"
+text = "Open"
+
+[node name="Save" type="Button" parent="Container/Window/Panel/FlexBox"]
+layout_mode = 2
+text = "Save"
 
 [node name="DragRegion" type="TextureRect" parent="Container/Window"]
 layout_mode = 1
@@ -197,24 +220,32 @@ texture = SubResource("GradientTexture2D_j473l")
 
 [node name="NodeContainer" type="Node3D" parent="."]
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="SaveFileDialog" type="FileDialog" parent="."]
 root_subfolder = "maps"
 filters = PackedStringArray("*.json")
 
+[node name="OpenFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+
 [node name="Selector" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.87931, 10.1897)
+visible = false
 mesh = SubResource("SphereMesh_l06n5")
 
 [node name="MapLoader" parent="." instance=ExtResource("5_j473l")]
 
 [connection signal="item_selected" from="Container/Divider/NodeListPanel/FlexBox/NodesList" to="." method="_select_node"]
-[connection signal="button_up" from="Container/Divider/NodeListPanel/FlexBox/NewNodeButton" to="." method="_create_node"]
+[connection signal="button_up" from="Container/Divider/NodeListPanel/FlexBox/HBoxContainer/NewNodeButton" to="." method="_create_node"]
+[connection signal="button_up" from="Container/Divider/NodeListPanel/FlexBox/HBoxContainer/DeleteNodeButton" to="." method="_delete_node"]
 [connection signal="text_submitted" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Name" to="." method="_update_name"]
 [connection signal="item_selected" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Type" to="." method="_update_type"]
 [connection signal="vector_changed" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Position" to="." method="_update_node_position"]
 [connection signal="vector_changed" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BasicDataContainer/Rotation" to="." method="_update_node_rotation"]
 [connection signal="text_submitted" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/BlockadeDataContainer/Activator" to="." method="_update_activator_name"]
 [connection signal="vector_changed" from="Container/Divider/NodeParametersPanel/ScrollBox/FlexBox/WallDataContainer/Size" to="." method="_update_size"]
-[connection signal="button_up" from="Container/Window/FlexBox/Back" to="." method="_back"]
-[connection signal="button_up" from="Container/Window/FlexBox/Save" to="." method="_open_save_dialog"]
-[connection signal="file_selected" from="FileDialog" to="." method="_save"]
+[connection signal="button_up" from="Container/Window/Panel/FlexBox/Back" to="." method="_back"]
+[connection signal="button_up" from="Container/Window/Panel/FlexBox/Load" to="." method="_open_map_load"]
+[connection signal="button_up" from="Container/Window/Panel/FlexBox/Save" to="." method="_open_save_dialog"]
+[connection signal="file_selected" from="SaveFileDialog" to="." method="_save"]
+[connection signal="file_selected" from="OpenFileDialog" to="." method="_load_map"]

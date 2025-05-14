@@ -24,7 +24,7 @@ func _ready() -> void:
 func _update_properties_panel(node: Node3D) -> void:
 	%Name.text = node.name;
 	%Position.value = node.position;
-	%Rotation.value = node.rotation;
+	%Rotation.value = node.rotation_degrees;
 	%Type.selected = _node_types.find(node.type);
 	
 	var data_containers: VBoxContainer = $Container/Divider/NodeParametersPanel/ScrollBox/FlexBox;
@@ -47,6 +47,7 @@ func _select_node(index: int) -> void:
 	await get_tree().process_frame;
 	_current_chosen_node = _nodes[ _list.get_item_text(index) ];
 	$Container/Divider/NodeParametersPanel.visible = true;
+	$Selector.visible = true;
 	$Selector.global_position = _current_chosen_node.global_position;
 	_update_properties_panel(_current_chosen_node);
 
@@ -124,16 +125,16 @@ func _back() -> void:
 	get_tree().change_scene_to_file("res://scenes/home_scene/home_scene.tscn");
 
 func _open_save_dialog() -> void:
-	$FileDialog.show();
+	$SaveFileDialog.show();
 
 func _save(path: String) -> void:
-	var serialized_map: String = "[\n";
-	for node in $NodeContainer.get_children():
-		serialized_map += JSON.stringify(node.serialize(), "\t") + ",\n";
-	serialized_map += "\n]";
+	var map_data: Array[ Dictionary ] = [];
+	
+	for child in $NodeContainer.get_children():
+		map_data.push_front(child.serialize());
 	
 	var map_file: FileAccess = FileAccess.open(path, FileAccess.WRITE);
-	map_file.store_string(serialized_map);
+	map_file.store_string(JSON.stringify(map_data, "\t"));
 
 func _is_withing_rect(box_start: Vector2, box_end: Vector2, point: Vector2) -> bool:
 	return box_start.x < point.x and box_end.x > point.x and box_start.y < point.y and box_end.y > point.y;
@@ -147,3 +148,55 @@ func _input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseMotion and _is_dragging:
 		$MapLoader/CameraPivot.rotation_degrees.y += event.screen_relative.x;
+
+func _open_map_load() -> void:
+	$OpenFileDialog.show();
+
+func _load_map(path: String) -> void:
+	var map_file: FileAccess = FileAccess.open(path, FileAccess.READ);
+	var map_data: Array = JSON.parse_string(map_file.get_as_text());
+	
+	for child in $NodeContainer.get_children():
+		child.queue_free();
+	await get_tree().process_frame;
+	
+	for node_data in map_data:
+		var type = node_data.type.capitalize();
+		var new_node: Node3D;
+		if type in _scene_types:
+			new_node = _scene_types[ type ].instantiate();
+		else:
+			new_node = Globals.instantiate_class(type + "3D");
+		Globals.set_map_node_state(new_node, node_data);
+		
+		match type:
+			"Wall":
+				new_node.size = Vector2(node_data.size.x, node_data.size.y);
+			"Blockade":
+				new_node.activator.name = node_data.activator;
+				print(new_node.activator, new_node.activator.name)
+			"Player":
+				new_node.target_position = Vector3(
+					node_data.position.x,
+					node_data.position.y,
+					node_data.position.z
+				);
+				new_node.target_rotation = node_data.rotation.y;
+		
+		if new_node is RigidBody3D:
+			new_node.freeze = true;
+		new_node.set_process(false);
+		new_node.set_process_internal(false);
+		new_node.set_physics_process(false);
+		new_node.set_physics_process_internal(false);
+		
+		$NodeContainer.add_child(new_node);
+	_refresh_list();
+
+func _delete_node() -> void:
+	if _current_chosen_node == null:
+		return;
+	_current_chosen_node.queue_free();
+	$Container/Divider/NodeParametersPanel.visible = false;
+	$Selector.visible = false;
+	_refresh_list();

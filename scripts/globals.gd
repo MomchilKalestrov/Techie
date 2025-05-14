@@ -34,3 +34,17 @@ func try_get_node(node: Node, path: String) -> Variant:
 	if node.has_node(path):
 		return node.get_node(path);
 	return null;
+
+func set_map_node_state(node: Node3D, state: Variant) -> void:
+	print(node, state)
+	node.position = Vector3(
+		state.position.x,
+		state.position.y,
+		state.position.z
+	);
+	node.rotation_degrees = Vector3(
+		state.rotation.x,
+		state.rotation.y,
+		state.rotation.z
+	);
+	node.name = state.name;
