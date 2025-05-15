@@ -49,6 +49,7 @@ signal vector_changed(vector: Vector3);
 func _ready() -> void:
 	alignment = FlowContainer.ALIGNMENT_CENTER;
 	
+	_x_input.step = 0.1;
 	_x_input.custom_arrow_step = 0.1;
 	var x_container: HBoxContainer = HBoxContainer.new();
 	var x_label: Label = Label.new();
@@ -59,6 +60,7 @@ func _ready() -> void:
 	x_container.add_child(_x_input);
 	add_child(x_container);
 	
+	_y_input.step = 0.1;
 	_y_input.custom_arrow_step = 0.1;
 	var y_container: HBoxContainer = HBoxContainer.new();
 	var y_label: Label = Label.new();
@@ -69,6 +71,7 @@ func _ready() -> void:
 	y_container.add_child(_y_input);
 	add_child(y_container);
 	
+	_z_input.step = 0.1;
 	_z_input.custom_arrow_step = 0.1;
 	var z_container: HBoxContainer = HBoxContainer.new();
 	var z_label: Label = Label.new();
