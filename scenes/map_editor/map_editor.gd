@@ -139,16 +139,6 @@ func _save(path: String) -> void:
 func _is_withing_rect(box_start: Vector2, box_end: Vector2, point: Vector2) -> bool:
 	return box_start.x < point.x and box_end.x > point.x and box_start.y < point.y and box_end.y > point.y;
 
-var _is_dragging: bool = false;
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		var dragger_position: Vector2 = $Container/Window/DragRegion.global_position;
-		var dragger_size: Vector2 = $Container/Window/DragRegion.size;
-		_is_dragging = _is_withing_rect(dragger_position, dragger_position + dragger_size, event.global_position) and not _is_dragging;
-	
-	if event is InputEventMouseMotion and _is_dragging:
-		$MapLoader/CameraPivot.rotation_degrees.y += event.screen_relative.x;
-
 func _open_map_load() -> void:
 	$OpenFileDialog.show();
 
@@ -190,3 +180,48 @@ func _delete_node() -> void:
 	$Container/Divider/NodeParametersPanel.visible = false;
 	$Selector.visible = false;
 	_refresh_list();
+
+var _is_dragging: bool = false;
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if not _is_dragging:
+			_select_node_by_mouse(Vector2i(event.global_position));
+		
+		var dragger_position: Vector2 = $Container/Window/DragRegion.global_position;
+		var dragger_size: Vector2 = $Container/Window/DragRegion.size;
+		_is_dragging = _is_withing_rect(dragger_position, dragger_position + dragger_size, event.global_position) and not _is_dragging;
+		
+	
+	if event is InputEventMouseMotion and _is_dragging:
+		$MapLoader/CameraPivot.rotation_degrees.y += event.screen_relative.x;
+
+func _select_node_by_mouse(click_position: Vector2i) -> void:
+	var camera: Camera3D = $MapLoader/CameraPivot/Camera
+	
+	var viewport_rect = get_viewport().get_visible_rect()
+	var viewport_position = Vector2(
+		click_position.x - viewport_rect.position.x, 
+		click_position.y - viewport_rect.position.y
+	)
+	
+	var origin = camera.project_ray_origin(viewport_position)
+	var direction = camera.project_ray_normal(viewport_position)
+	
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(origin, origin + direction * 50)
+	var result = space_state.intersect_ray(query)
+	
+	if result and result.collider is Node3D:
+		var node = result.collider
+		var parent_found = false
+		for child in $NodeContainer.get_children():
+			if child == node or node.is_ancestor_of(child) or child.is_ancestor_of(node):
+				# Select this node in the list
+				for i in range(_list.item_count):
+					if _list.get_item_text(i) == child.name:
+						_list.select(i)
+						_select_node(i)
+						parent_found = true
+						break
+			if parent_found:
+				break
