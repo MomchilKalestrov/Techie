@@ -81,3 +81,6 @@ func _download_and_load_map() -> void:
 func _open_editor() -> void:
 	Globals.map_data = [];
 	get_tree().change_scene_to_file("res://scenes/map_editor/map_editor.tscn");
+
+func _physics_process(delta: float) -> void:
+	$MapLoader/CameraPivot.rotation_degrees.y += delta * 10;

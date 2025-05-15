@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://p6tq1qyrvdb2"
 path.s3tc="res://.godot/imported/crate_albedo.png-bd517f54f2275b801367f5854cf081f3.s3tc.ctex"
+path.etc2="res://.godot/imported/crate_albedo.png-bd517f54f2275b801367f5854cf081f3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://visual/materials/crate/crate_albedo.png"
-dest_files=["res://.godot/imported/crate_albedo.png-bd517f54f2275b801367f5854cf081f3.s3tc.ctex"]
+dest_files=["res://.godot/imported/crate_albedo.png-bd517f54f2275b801367f5854cf081f3.s3tc.ctex", "res://.godot/imported/crate_albedo.png-bd517f54f2275b801367f5854cf081f3.etc2.ctex"]
 
 [params]
 

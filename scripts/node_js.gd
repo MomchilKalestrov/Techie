@@ -136,7 +136,8 @@ const client = net.createConnection({ port: 5000 }, async () => {
 	// end of client's code
 });"""
 	);
-	
+	file.close();
+
 	return temp_path;
 
 func send_next_command() -> void:
