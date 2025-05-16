@@ -1,6 +1,7 @@
 extends Control;
 
 const _initial_console_string = "Console:\n";
+var _is_block_editor: bool = false;
 
 const _highlighter: Dictionary[ Color, Array ] = {
 	Color("#ce8f5e"): [ "region", [ "\"|\"", "'|'", "`|`" ] ],
@@ -37,10 +38,13 @@ func _ready() -> void:
 
 func _run() -> void:
 	Globals.world.reset();
-	NodeJs.instatiate_node_js($Main/Ide.text, _log);
+	print($Main/CommandEditor.extract_js_code())
+	NodeJs.instatiate_node_js($Main/CommandEditor.extract_js_code() if _is_block_editor else $Main/Ide.text, _log);
 
 func _toggle_editor() -> void:
-	$Main.visible = !$Main.visible;
+	_is_block_editor = not _is_block_editor;
+	$Main/Ide.visible = not _is_block_editor;
+	$Main/CommandEditor.visible = _is_block_editor;
 
 func _stop() -> void:
 	$Main/Logger.text = _initial_console_string;

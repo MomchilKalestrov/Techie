@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://quvnk4xrikn7"]
+[gd_scene load_steps=5 format=3 uid="uid://quvnk4xrikn7"]
 
 [ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="1_j6ccg"]
 [ext_resource type="Script" uid="uid://c7b4bpsdd4qrw" path="res://scenes/code_editor/code_editor.gd" id="1_q0psu"]
+[ext_resource type="PackedScene" uid="uid://rxqsxscvfax1" path="res://prefabs/block_editor/command_editor.tscn" id="3_vhxd1"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_j6ccg"]
 number_color = Color(1, 1, 1, 1)
@@ -57,6 +58,11 @@ text = "Stop"
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
+
+[node name="CommandEditor" parent="Main" instance=ExtResource("3_vhxd1")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Ide" type="CodeEdit" parent="Main"]
 layout_mode = 2
