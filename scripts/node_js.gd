@@ -6,7 +6,7 @@ func is_facing_wall() -> bool:
 var functions: Dictionary[ String, Callable ] = {
 	"move_forwards": func () -> void:
 		Globals.player.move_forwards(),
-	"move_down": func () -> void:
+	"move_backwards": func () -> void:
 		Globals.player.move_backwards(),
 	"turn_left": func () -> void:
 		Globals.player.turn_left(),
