@@ -1,12 +1,38 @@
 extends Control;
 
+var _start_block: CommandBlock;
 var _index: int = 0;
 var _blocks_data: Array[ CommandBlockData ] = [
-	CommandBlockData.new("Move Forwards", Color.ROYAL_BLUE, "await moveForwards();\n"),
-	CommandBlockData.new("Move Backwards", Color.ROYAL_BLUE, "await moveBackwards();\n"),
-	CommandBlockData.new("Turn Left", Color.LIME_GREEN, "await turnLeft();\n"),
-	CommandBlockData.new("Turn Right", Color.LIME_GREEN, "await turnRight();\n"),
-	CommandBlockData.new("Interract", Color.INDIAN_RED, "await interract();")
+	CommandBlockData.new(
+		"Move Forwards",
+		Color.ROYAL_BLUE,
+		"%0\nawait moveForwards();",
+		1
+	),
+	CommandBlockData.new(
+		"Move Backwards",
+		Color.ROYAL_BLUE,
+		"%0\nawait moveBackwards();",
+		1
+	),
+	CommandBlockData.new(
+		"Turn Left",
+		Color.LIME_GREEN,
+		"%0\nawait turnLeft();",
+		1
+	),
+	CommandBlockData.new(
+		"Turn Right",
+		Color.LIME_GREEN,
+		"%0\nawait turnRight();",
+		1
+	),
+	CommandBlockData.new(
+		"Interract",
+		Color.INDIAN_RED,
+		"%0\nawait interract();",
+		1
+	),
 ];
 
 func _ready() -> void:
@@ -19,8 +45,9 @@ func _ready() -> void:
 	block.name = "block-" + str(_index);
 	block.title = "Start";
 	block.color = Color.DARK_GOLDENROD;
-	block.js_code = "";
+	block.js_code = "%0";
 	block.start_block = true;
+	_start_block = block;
 	%Nodes.add_child(block);
 
 func _move_up() -> void:
@@ -44,23 +71,25 @@ func _add_block(index: int) -> void:
 	var block_data: CommandBlockData = _blocks_data[ item_index ];
 	var block: CommandBlock = CommandBlock.new();
 	block.drag_end.connect(_drag_block);
-	block.name = "block-" + str(_index);
 	block.title = block_data.title;
 	block.color = block_data.color;
 	block.js_code = block_data.js_code;
 	%Nodes.add_child(block);
+	block.name = "block-" + str(_index);
 	_index += 1;
 
-func _drag_block(block: CommandBlock) -> void:
-	if block.start_block:
+func _drag_block(dragged_block: CommandBlock) -> void:
+	if dragged_block.start_block:
 		return;
-	for child in %Nodes.get_children():
-		if \
-			Rect2(child.position, child.size).has_point(block.position) and \
-			child.name != block.name:
-			child.next_block = block;
-			block.previous_block = child;
-			return;
+	   
+	var nodes: Array[ Node ] = %Nodes.get_children();
+	for node in nodes:
+		if node.name == dragged_block.name:
+			continue;
+		var block: CommandBlock = node;
+		for connection in block.connections:
+			if connection.can_connect(dragged_block.global_position):
+				connection.connect_block(dragged_block);
 
 func extract_js_code() -> String:
-	return %StartBlock.extract_js_code();
+	return _start_block.extract_js_code();
