@@ -11,7 +11,6 @@ var _connections: Array[ BlockConnection ];
 
 var connection_count: int = 1;
 @export var start_block: bool = false;
-# this works just like a double linked list lmao
 var parent_connection: BlockConnection;
 var connections: Array[ BlockConnection ]:
 	get:
@@ -31,10 +30,10 @@ var _color: Color = Color(1, 1, 1, 1);
 	set(value):
 		if not start_block:
 			_color = value;
-			get_theme_stylebox("panel").bg_color = Color(value, 0.5);
+			get_theme_stylebox("panel").bg_color = value;
 			
 			for connection in connections:
-				connection.get_theme_stylebox("panel").bg_color = Color(value, 0.5);
+				connection.get_theme_stylebox("panel").bg_color = value;
 
 @export var js_code: String = "";
 
@@ -50,13 +49,14 @@ func _ready() -> void:
 	size = Vector2(_title.size.x + 8, 31);
 	
 	var stylebox: StyleBoxFlat = StyleBoxFlat.new();
-	stylebox.bg_color = Color(_color, 0.5);
+	stylebox.bg_color = _color;
 	stylebox.corner_radius_bottom_left = 4;
 	stylebox.corner_radius_bottom_right = 4;
 	
 	_connections.resize(connection_count);
 	for index in connection_count:
 		_connections[ index ] = BlockConnection.new();
+		_connections[ index ].z_index = 99;
 		_connections[ index ].size = Vector2(16.0, 8.0);
 		_connections[ index ].position = Vector2(4 + 20 * index, size.y);
 		_connections[ index ].add_theme_stylebox_override("panel", stylebox);
@@ -66,8 +66,8 @@ func _ready() -> void:
 func _update_connection_heights() -> void:
 	for index in range(connection_count):
 		var connection = connections[ index ];
-		var connection_length = max(0, get_length(index + 1) - 1);
-		connection.size.y = connection_length * 40 + BlockConnection.DEFAULT_CONNECTION_HEIGHT;
+		var connection_length = max(connection_count - 1 - index, get_length(index + 1) - 1);
+		connection.size.y = connection_length * 32 + (connection_count - index) * BlockConnection.DEFAULT_CONNECTION_HEIGHT;
 
 func _process(_delta: float) -> void:
 	_update_connection_heights();
@@ -109,13 +109,13 @@ func extract_js_code() -> String:
 	return result;
 
 func get_length(start_index: int) -> int:
-	if start_index >= connection_count:
-		return 1;
-	
 	var total_length = 1;
 	
-	for i in range(start_index, connection_count):
-		var connection = connections[ i ];
+	if start_index >= connection_count:
+		return total_length;
+	
+	for index in range(start_index, connection_count):
+		var connection = connections[ index ];
 		if connection.connected_block != null:
 			total_length += connection.connected_block.get_length(0);
 	

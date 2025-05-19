@@ -94,7 +94,7 @@ grow_vertical = 2
 layout_mode = 2
 selected = 0
 item_count = 1
-popup/item_0/text = "Add"
+popup/item_0/text = "Blocks"
 popup/item_0/id = 0
 popup/item_0/separator = true
 
@@ -102,4 +102,4 @@ popup/item_0/separator = true
 [connection signal="button_up" from="BlocksContainer/Mover/Left" to="." method="_move_left"]
 [connection signal="button_up" from="BlocksContainer/Mover/Right" to="." method="_move_right"]
 [connection signal="button_up" from="BlocksContainer/Mover/Down" to="." method="_move_down"]
-[connection signal="item_selected" from="NavContainer/FlexBox/OptionButton" to="." method="_add_block"]
+[connection signal="item_selected" from="NavContainer/FlexBox/OptionButton" to="." method="_add"]
