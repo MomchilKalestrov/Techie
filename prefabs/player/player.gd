@@ -31,14 +31,16 @@ func _ready() -> void:
 	_target_position = global_position;
 
 func _physics_process(delta: float) -> void:
-	rotation_degrees.y = lerp(rotation_degrees.y, target_rotation, min(1, delta * 10));
+	var shortest_angle = wrapf(target_rotation - rotation_degrees.y, -180.0, 180.0)
+	rotation_degrees.y = rotation_degrees.y + shortest_angle * min(1, delta * 10)
+	
 	# Mrs. Nickolova would probably kill herself if she saw
 	# how we calculate the velocity but fuck it we ball
 	velocity = (target_position - global_position).snappedf(0.01) * 10;
 	if velocity == Vector3.ZERO and not has_reached_destination:
 		has_reached_destination = true;
 		NodeJs.send_next_command();
-	elif snappedf(target_rotation, 0.01) == snappedf(rotation_degrees.y, 0.01) and not has_reached_rotation:
+	elif abs(shortest_angle) < 0.1 and not has_reached_rotation:
 		has_reached_rotation = true;
 		NodeJs.send_next_command();
 	
@@ -63,17 +65,11 @@ func _not_facing_wall(_body: Node3D) -> void:
 			return;
 	_is_facing_wall = false;
 
-func move_forwards() -> void:
-	target_position += Vector3.FORWARD.rotated(Vector3.UP, rotation.y);
-
-func move_backwards() -> void:
-	target_position += Vector3.BACK.rotated(Vector3.UP, rotation.y);
-
 func turn_left() -> void:
-	target_rotation += 90.0;
+	target_rotation = fmod(target_rotation + 90.0, 360.0);
 
 func turn_right() -> void:
-	target_rotation -= 90.0;
+	target_rotation = fmod(target_rotation - 90.0 + 360.0, 360.0);
 
 func interract() -> void:
 	var areas: Array[ Area3D ] = $WallCheck.get_overlapping_areas();
