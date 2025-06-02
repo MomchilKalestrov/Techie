@@ -224,4 +224,4 @@ func _select_node_by_mouse(click_position: Vector2i) -> void:
 						parent_found = true
 						break
 			if parent_found:
-				break
+				break;

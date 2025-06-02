@@ -9,9 +9,11 @@ var activator: Activator3D = Activator3D.new();
 var _blockade: StaticBody3D;
 
 func _ready() -> void:
+	# fallback for the map editor
 	if activator.name == null:
 		activator.name = "null";
 	
+	# initialize the model
 	var base: Node3D = preload("res://visual/models/blockade/base.glb").instantiate();
 	
 	_blockade = StaticBody3D.new();
@@ -27,6 +29,7 @@ func _ready() -> void:
 	_blockade.add_child(bars);
 	add_child(_blockade);
 
+# if the activator (lever, button or else) is active, lower the bars
 func _process(delta: float) -> void:
 	_blockade.position.y = lerp(_blockade.position.y, -0.5 if activator.is_active() else 0.5, min(1, 5 * delta));
 

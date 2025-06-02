@@ -1,16 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://djxrhuh1oxknu"]
+[gd_scene load_steps=5 format=3 uid="uid://djxrhuh1oxknu"]
 
 [ext_resource type="Script" uid="uid://bpflwbbcsg104" path="res://prefabs/player/player.gd" id="1_sxsrd"]
+[ext_resource type="PackedScene" uid="uid://c1uxh2podhpha" path="res://visual/models/player/player.glb" id="2_rdx4y"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxsrd"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sxsrd"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_sxsrd"]
-material = SubResource("StandardMaterial3D_sxsrd")
-
-[sub_resource type="BoxMesh" id="BoxMesh_sxsrd"]
-size = Vector3(1, 0.5, 0.5)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rdx4y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sxsrd"]
 size = Vector3(0.75, 1.75, 0.5)
@@ -19,20 +12,18 @@ size = Vector3(0.75, 1.75, 0.5)
 script = ExtResource("1_sxsrd")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_sxsrd")
-
-[node name="Model" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_sxsrd")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -0.25)
-mesh = SubResource("BoxMesh_sxsrd")
+shape = SubResource("CylinderShape3D_rdx4y")
 
 [node name="WallCheck" type="Area3D" parent="."]
+editor_description = "A bit smaller than 2x1x0.5 to make sure the floor or something else unwanted clips into it"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
 
 [node name="Collision" type="CollisionShape3D" parent="WallCheck"]
 shape = SubResource("BoxShape3D_sxsrd")
+
+[node name="player" parent="." instance=ExtResource("2_rdx4y")]
+editor_description = "Previous model was a generic pill, but I am too lazy to fix the maps, so he'll just stay \"under\" the floor in the scene"
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, -0.375, 0.019)
 
 [connection signal="area_entered" from="WallCheck" to="." method="_facing_wall"]
 [connection signal="area_exited" from="WallCheck" to="." method="_not_facing_wall"]

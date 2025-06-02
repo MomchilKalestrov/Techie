@@ -22,6 +22,7 @@ const _highlighter: Dictionary[ Color, Array ] = {
 };
 
 func _ready() -> void:
+	# Add pretty colors to the JS editor.
 	var syntax_highlighter: CodeHighlighter = $Main/Ide.syntax_highlighter;
 	for color in _highlighter.keys():
 		var highlight = _highlighter[ color ];
@@ -38,7 +39,6 @@ func _ready() -> void:
 
 func _run() -> void:
 	Globals.world.reset();
-	print($Main/CommandEditor.extract_js_code())
 	NodeJs.instatiate_node_js($Main/CommandEditor.extract_js_code() if _is_block_editor else $Main/Ide.text, _log);
 
 func _toggle_editor() -> void:

@@ -1,3 +1,6 @@
+# Code's pretty self explanatory.
+# All I can mention is that it was
+# a pain in the ass to implement.
 extends Panel;
 class_name BlockConnection;
 

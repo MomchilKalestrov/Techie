@@ -31,6 +31,8 @@ func _ready() -> void:
 	_target_position = global_position;
 
 func _physics_process(delta: float) -> void:
+	# Patch by Sonnet to fix a bug where the player
+	# spinned uncontrollably.
 	var shortest_angle = wrapf(target_rotation - rotation_degrees.y, -180.0, 180.0)
 	rotation_degrees.y = rotation_degrees.y + shortest_angle * min(1, delta * 10)
 	
@@ -42,12 +44,13 @@ func _physics_process(delta: float) -> void:
 		NodeJs.send_next_command();
 	elif abs(shortest_angle) < 0.1 and not has_reached_rotation:
 		has_reached_rotation = true;
-		NodeJs.send_next_command();
+		NodeJs.send_next_command(); 
 	
 	# return early if the body hasn't collided with anything
 	if not move_and_slide():
 		return;
 	
+	# kick any physics body in the way (most likely a box of sorts)
 	for index in get_slide_collision_count():
 		var collision: KinematicCollision3D = get_slide_collision(index);
 		var collider = collision.get_collider();

@@ -50,14 +50,18 @@ var _conditions_data: Array[ ConditionData ] = [
 ];
 
 func _ready() -> void:
+	# add code blocks (move forwards, turn left, interract, while loop and others)
+	# to the lists
 	for block_data in _blocks_data:
 		$NavContainer/FlexBox/OptionButton.add_item(block_data.title);
 	$NavContainer/FlexBox/OptionButton.add_separator("Conditions")
+	# add conditions for the conditional blocks (if statements, while loops and more)
 	for condition_data in _conditions_data:
 		$NavContainer/FlexBox/OptionButton.add_item(condition_data.title);
 	$NavContainer/FlexBox/OptionButton.selected = 0;
 	
-	var block: Node = CommandBlock.new();
+	# add the block that the program will start from
+	var block: CommandBlock = CommandBlock.new();
 	block.drag_end.connect(_drag_block);
 	block.name = "block-" + str(_index);
 	block.title = "Start";
@@ -102,17 +106,25 @@ func _add(index: int) -> void:
 	$NavContainer/FlexBox/OptionButton.selected = 0;
 	if index == 0:
 		return;
+	# subtract 1 because there is a title that counts as an element at index 0
 	var item_index = index - 1;
+	
+	# command block data is added first and then the conditions,
+	# so if the user wants to add a condition we need to get
+	# the offset of the _condition_data array
 	
 	if item_index < len(_blocks_data):
 		_add_block(_blocks_data[ item_index ]);
 	else:
+		# add another "- 1" because there is a title
+		# that seperates the blocks and conditions and
+		# that counts as an element from the list
 		_add_condition(_conditions_data[ item_index - 1 - len(_blocks_data) ]);
 
 func _drag_block(dragged_block: CommandBlock) -> void:
 	if dragged_block.start_block:
 		return;
-	   
+	
 	var nodes: Array[ Node ] = %Nodes.get_children();
 	for node in nodes:
 		if node.name == dragged_block.name or not node is CommandBlock:

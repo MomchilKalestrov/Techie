@@ -9,6 +9,10 @@ var _is_dragging: bool = false;
 var _title: Label = Label.new();
 var _connections: Array[ BlockConnection ];
 
+# How many connections a block should have.
+# For example: if you have 2 connection blocks,
+# you would be able to connect two child
+# blocks to this one.
 var connection_count: int = 1;
 @export var start_block: bool = false;
 var parent_connection: BlockConnection;
@@ -16,6 +20,7 @@ var connections: Array[ BlockConnection ]:
 	get:
 		return _connections;
 
+# title of the command block
 @export var title: String:
 	get:
 		return _title.text;
@@ -23,6 +28,7 @@ var connections: Array[ BlockConnection ]:
 		if not start_block:
 			_title.text = value;
 
+# color of the command block
 var _color: Color = Color(1, 1, 1, 1);
 @export var color: Color:
 	get:
@@ -32,10 +38,11 @@ var _color: Color = Color(1, 1, 1, 1);
 			_color = value;
 			get_theme_stylebox("panel").bg_color = value;
 			
+			# have to set all connection colors individually
 			for connection in connections:
 				connection.get_theme_stylebox("panel").bg_color = value;
 
-@export var js_code: String = "";
+@export var js_code: String = "%0";
 
 func _init() -> void:
 	var stylebox: StyleBoxFlat = StyleBoxFlat.new();
@@ -53,9 +60,12 @@ func _ready() -> void:
 	stylebox.corner_radius_bottom_left = 4;
 	stylebox.corner_radius_bottom_right = 4;
 	
+	# initialize the connections
 	_connections.resize(connection_count);
 	for index in connection_count:
 		_connections[ index ] = BlockConnection.new();
+		# CSS-ass patch.
+		# Fixes the connections being hidden behind the children 
 		_connections[ index ].z_index = 99;
 		_connections[ index ].size = Vector2(16.0, 8.0);
 		_connections[ index ].position = Vector2(4 + 20 * index, size.y);
@@ -64,6 +74,20 @@ func _ready() -> void:
 		_connections[ index ].name = "connection-" + str(index);
 
 func _update_connection_heights() -> void:
+	# Say we have more than 1 connection.
+	# We don't want them to appear like this:
+	#
+	# #######
+	# # #      (notice the same height)
+	#
+	# Because that would mean children would
+	# overlap. So this code makes it so the
+	# connections would look like this:
+	#
+	# #######
+	# # #      (notice the difference in height)
+	# #
+	
 	for index in range(connection_count):
 		var connection = connections[ index ];
 		var connection_length = max(connection_count - 1 - index, get_length(index + 1) - 1);
@@ -71,6 +95,8 @@ func _update_connection_heights() -> void:
 
 func _process(_delta: float) -> void:
 	_update_connection_heights();
+	# keep the block visually connected to the parent
+	# (stay right under it)
 	if not _is_dragging and parent_connection != null:
 		global_position = parent_connection.global_position + Vector2(-4, parent_connection.size.y + 1 - BlockConnection.DEFAULT_CONNECTION_HEIGHT)
 
@@ -97,8 +123,10 @@ func _input(event: InputEvent) -> void:
 			parent_connection.connected_block = null;
 			parent_connection = null;
 
-# %<index> - replaces the given index's code
-
+# There are special wildcard templates
+# that can be used the js code in the blocks:
+# - %<index> - replaces it with the code from the
+#   block at the given connection index
 func extract_js_code() -> String:
 	var result: String = js_code;
 	for index in connection_count:

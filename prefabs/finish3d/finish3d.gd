@@ -18,11 +18,18 @@ func _ready() -> void:
 	body_entered.connect(_finish);
 
 func _finish(body: Node3D) -> void:
+	# NOTE:
 	if body is CharacterBody3D:
+		# Spawning scenes is NOT good
+		# practise, BUT in my defence:
+		# look up the confetti scene
+		# and try to implement it with
+		# code only.
 		var confetti: Node3D = preload("res://prefabs/finish3d/confetti.tscn").instantiate();
 		add_child(confetti);
 		for child in confetti.get_children():
 			child.emitting = true;
+		# Wait for the first confetti to finish.
 		await confetti.get_node("Red").finished;
 		confetti.queue_free();
 

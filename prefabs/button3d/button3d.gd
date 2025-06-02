@@ -22,7 +22,7 @@ func _ready() -> void:
 	var base: MeshInstance3D = MeshInstance3D.new();
 	base.mesh = BoxMesh.new();
 	base.mesh.size.y = 0.125;
-	base.position.y = 0.06125;
+	base.position.y = 0.0625;
 	
 	var button: MeshInstance3D = MeshInstance3D.new();
 	button.mesh = BoxMesh.new();
@@ -41,7 +41,7 @@ func _ready() -> void:
 	area.body_exited.connect(_released);
 
 func _process(delta: float) -> void:
-	_button.position.y = lerp(_button.position.y, 0.06125 if _is_pressed else 0.125, min(1, 5 * delta));
+	_button.position.y = lerp(_button.position.y, 0.0625 if _is_pressed else 0.125, min(1, 5 * delta));
 
 func _pressed(_body: Node3D) -> void:
 	active.emit();

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://rxqsxscvfax1"]
+[gd_scene load_steps=3 format=3 uid="uid://rxqsxscvfax1"]
 
 [ext_resource type="Script" uid="uid://bur4yxp10n1gl" path="res://prefabs/block_editor/block_editor.gd" id="1_0g2hp"]
+[ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="1_4w6jb"]
 
 [node name="CommandEditor" type="VBoxContainer"]
 anchors_preset = 15
@@ -8,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_4w6jb")
 script = ExtResource("1_0g2hp")
 
 [node name="BlocksContainer" type="Panel" parent="."]
