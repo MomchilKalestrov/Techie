@@ -1,0 +1,1 @@
+This is a simple project/game. You control a robot using code blocks (like in scratch) or using JavaScript. The point is to make the robot move to the finish point using the method of your choosing.
