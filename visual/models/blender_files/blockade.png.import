@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb3psowrfhr66"
-path.s3tc="res://.godot/imported/texture.png-99f5b4d27ec6d9f1384442cedff56557.s3tc.ctex"
-path.etc2="res://.godot/imported/texture.png-99f5b4d27ec6d9f1384442cedff56557.etc2.ctex"
+uid="uid://dfa5718rcuklw"
+path.s3tc="res://.godot/imported/blockade.png-245c48ee24592383d0d073c985cee2b6.s3tc.ctex"
+path.etc2="res://.godot/imported/blockade.png-245c48ee24592383d0d073c985cee2b6.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://visual/models/texture.png"
-dest_files=["res://.godot/imported/texture.png-99f5b4d27ec6d9f1384442cedff56557.s3tc.ctex", "res://.godot/imported/texture.png-99f5b4d27ec6d9f1384442cedff56557.etc2.ctex"]
+source_file="res://visual/models/blender_files/blockade.png"
+dest_files=["res://.godot/imported/blockade.png-245c48ee24592383d0d073c985cee2b6.s3tc.ctex", "res://.godot/imported/blockade.png-245c48ee24592383d0d073c985cee2b6.etc2.ctex"]
 
 [params]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bosokxv388bw2"
-path="res://.godot/imported/base.glb-36da26baeb3599dadbd4980eac0dd9d6.scn"
+uid="uid://okkobwofmvgt"
+path="res://.godot/imported/base.glb-f60dbfea68981fa9b9ebd3163fb88935.scn"
 
 [deps]
 
-source_file="res://visual/models/lever/base.glb"
-dest_files=["res://.godot/imported/base.glb-36da26baeb3599dadbd4980eac0dd9d6.scn"]
+source_file="res://visual/models/button/base.glb"
+dest_files=["res://.godot/imported/base.glb-f60dbfea68981fa9b9ebd3163fb88935.scn"]
 
 [params]
 
