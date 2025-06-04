@@ -6,7 +6,7 @@ class_name Button3D;
 const type: String = "Button";
 
 var _is_pressed: bool = false;
-var _button: MeshInstance3D;
+var _button: Node3D;
 
 func is_active() -> bool:
 	return _is_pressed;
@@ -17,31 +17,22 @@ func _ready() -> void:
 	
 	var collision: CollisionShape3D = CollisionShape3D.new();
 	collision.shape = BoxShape3D.new();
-	collision.shape.size.y = 0.25;
+	collision.shape.size = Vector3(0.9, 0.25, 0.9);
 	
-	var base: MeshInstance3D = MeshInstance3D.new();
-	base.mesh = BoxMesh.new();
-	base.mesh.size.y = 0.125;
-	base.position.y = 0.0625;
+	var base: Node3D = preload("res://visual/models/button/base.glb").instantiate();
 	
-	var button: MeshInstance3D = MeshInstance3D.new();
-	button.mesh = BoxMesh.new();
-	button.mesh.size = Vector3(0.875, 0.125, 0.875);
-	button.mesh.material = preload("res://visual/materials/red_plastic.tres");
-	button.position.y = 0.125;
+	_button = preload("res://visual/models/button/press.glb").instantiate();
 
 	add_child(area);
 	area.add_child(collision);
 	add_child(base);
-	add_child(button);
-	
-	_button = button;
+	add_child(_button);
 	
 	area.body_entered.connect(_pressed);
 	area.body_exited.connect(_released);
 
 func _process(delta: float) -> void:
-	_button.position.y = lerp(_button.position.y, 0.0625 if _is_pressed else 0.125, min(1, 5 * delta));
+	_button.position.y = lerp(_button.position.y, -0.125 if _is_pressed else 0.0, min(1, 5 * delta));
 
 func _pressed(_body: Node3D) -> void:
 	active.emit();

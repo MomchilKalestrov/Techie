@@ -134,7 +134,7 @@ const client = net.createConnection({ port: 5000 }, async () => {
 	// start of client's code
 	""" + "\n\t".join(code.split("\n")) + """
 	// end of client's code
-    process.exit(0);
+	process.exit(0);
 });"""
 	);
 	file.close();

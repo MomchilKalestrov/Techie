@@ -10,7 +10,6 @@ var _lever: Node3D;
 const _lever_tilt: float = 30.0;
 
 func _ready() -> void:
-	var base: Node3D = preload("res://visual/models/lever/base.glb").instantiate();
 	_lever = preload("res://visual/models/lever/handle.glb").instantiate();
 	_lever.rotation_degrees.x = _lever_tilt;
 	
@@ -18,7 +17,6 @@ func _ready() -> void:
 	interractable.interracted.connect(_interracted);
 	
 	add_child(interractable);
-	add_child(base);
 	add_child(_lever);
 
 func _interracted() -> void:
