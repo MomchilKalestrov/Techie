@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="1_j6ccg"]
 [ext_resource type="Script" uid="uid://c7b4bpsdd4qrw" path="res://scenes/code_editor/code_editor.gd" id="1_q0psu"]
-[ext_resource type="PackedScene" uid="uid://rxqsxscvfax1" path="res://prefabs/block_editor/command_editor.tscn" id="3_vhxd1"]
+[ext_resource type="PackedScene" uid="uid://rxqsxscvfax1" path="res://scenes/block_editor/command_editor.tscn" id="3_vhxd1"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_j6ccg"]
 number_color = Color(1, 1, 1, 1)

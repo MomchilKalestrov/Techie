@@ -1,10 +1,53 @@
 [
 	{
-		"name": "wall1",
+		"name": "player1",
 		"position": {
 			"x": -2.0,
+			"y": 1.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": -90.0,
+			"z": 0.0
+		},
+		"type": "player"
+	},
+	{
+		"name": "lever-1",
+		"position": {
+			"x": 0.0,
 			"y": 0.0,
 			"z": -1.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 90.0,
+			"z": 0.0
+		},
+		"type": "lever"
+	},
+	{
+		"activator": "lever-1",
+		"name": "blockade-1",
+		"position": {
+			"x": 1.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 90.0,
+			"z": 0.0
+		},
+		"type": "blockade"
+	},
+	{
+		"name": "wall5",
+		"position": {
+			"x": 3.0,
+			"y": 0.0,
+			"z": 0.0
 		},
 		"rotation": {
 			"x": 0.0,
@@ -12,7 +55,43 @@
 			"z": 0.0
 		},
 		"size": {
-			"x": 3.0,
+			"x": 1.0,
+			"y": 2.0
+		},
+		"type": "wall"
+	},
+	{
+		"name": "wall4",
+		"position": {
+			"x": -3.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 1.0,
+			"y": 2.0
+		},
+		"type": "wall"
+	},
+	{
+		"name": "wall3",
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 1.0
+		},
+		"rotation": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.0
+		},
+		"size": {
+			"x": 7.0,
 			"y": 1.0
 		},
 		"type": "wall"
@@ -36,114 +115,21 @@
 		"type": "wall"
 	},
 	{
-		"name": "wall3",
+		"name": "wall1",
 		"position": {
-			"x": 0.0,
-			"y": 0.0,
-			"z": 1.0
-		},
-		"rotation": {
-			"x": 0.0,
-			"y": 0.0,
-			"z": 0.0
-		},
-		"size": {
-			"x": 7.0,
-			"y": 1.0
-		},
-		"type": "wall"
-	},
-	{
-		"name": "wall4",
-		"position": {
-			"x": -3.0,
-			"y": 0.0,
-			"z": 0.0
-		},
-		"rotation": {
-			"x": 0.0,
-			"y": 0.0,
-			"z": 0.0
-		},
-		"size": {
-			"x": 1.0,
-			"y": 2.0
-		},
-		"type": "wall"
-	},
-	{
-		"name": "wall5",
-		"position": {
-			"x": 3.0,
-			"y": 0.0,
-			"z": 0.0
-		},
-		"rotation": {
-			"x": 0.0,
-			"y": 0.0,
-			"z": 0.0
-		},
-		"size": {
-			"x": 1.0,
-			"y": 2.0
-		},
-		"type": "wall"
-	},
-	{
-		"activator": "lever-1",
-		"name": "blockade-1",
-		"position": {
-			"x": 1.0,
-			"y": 0.0,
-			"z": 0.0
-		},
-		"rotation": {
-			"x": 0.0,
-			"y": 90.0,
-			"z": 0.0
-		},
-		"type": "blockade"
-	},
-	{
-		"name": "lever-1",
-		"position": {
-			"x": 0.0,
+			"x": -2.0,
 			"y": 0.0,
 			"z": -1.0
 		},
 		"rotation": {
 			"x": 0.0,
-			"y": 90.0,
-			"z": 0.0
-		},
-		"type": "lever"
-	},
-	{
-		"name": "player1",
-		"position": {
-			"x": -2.0,
-			"y": 1.0,
-			"z": 0.0
-		},
-		"rotation": {
-			"x": 0.0,
-			"y": -90.0,
-			"z": 0.0
-		},
-		"type": "player"
-	},
-	{
-		"name": "finish1",
-		"position": {
-			"x": 2.0,
 			"y": 0.0,
 			"z": 0.0
 		},
-		"rotation": {
-			"x": 0.0,
-			"y": -90.0,
-			"z": 0.0
+		"size": {
+			"x": 3.0,
+			"y": 1.0
 		},
-		"type": "finish"
+		"type": "wall"
 	}
 ]
