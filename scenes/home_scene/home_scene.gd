@@ -6,6 +6,8 @@ var _has_selected_map: bool = false;
 
 func _ready() -> void:
 	_load_maps();
+	if OS.get_name() == 'Web':
+		$EditorButton.queue_free();
 
 func _get_all_files(path: String) -> Array[ String ]:
 	var files: Array[ String ] = [];

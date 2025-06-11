@@ -3,6 +3,10 @@ extends Node3D;
 func _ready() -> void:
 	load_map();
 	Globals.world = self;
+	if OS.get_name() == "Web":
+		$Floor/Water.material_override = preload("res://visual/materials/water/fallback/water.tres");
+		$WorldEnvironment.environment.adjustment_enabled = false;
+		$WorldEnvironment.environment.adjustment_brightness = 0.9;
 
 func load_map() -> void:
 	_load_world();

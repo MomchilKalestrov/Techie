@@ -1,3 +1,4 @@
+@tool
 extends CommandBlock;
 class_name ConditionalBlock;
 

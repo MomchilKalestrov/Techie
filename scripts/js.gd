@@ -1,23 +1,20 @@
 extends Node;
 
-func is_facing_wall() -> bool:
-	return false;
-
 var functions: Dictionary[ String, Callable ] = {
-	"move_forwards": func () -> void:
+	"move_forwards": func mf(_args) -> void:
 		Globals.player.move_forwards(),
-	"move_backwards": func () -> void:
+	"move_backwards": func mb(_args) -> void:
 		Globals.player.move_backwards(),
-	"turn_left": func () -> void:
+	"turn_left": func tl(_args) -> void:
 		Globals.player.turn_left(),
-	"turn_right": func () -> void:
+	"turn_right": func tr(_args) -> void:
 		Globals.player.turn_right(),
-	"log": func (message) -> void:
+	"log": func l(message) -> void:
 		_logger.call(message)
 		print("Message from Node.JS environment: ", message),
-	"is_facing_wall": func() -> bool:
+	"is_facing_wall": func ifw(_args) -> bool:
 		return Globals.player.is_facing_wall,
-	"interract": func() -> void:
+	"interract": func i(_args) -> void:
 		Globals.player.interract();
 };
 
@@ -52,7 +49,7 @@ func _process(_delta: float) -> void:
 				var function: String = value.split("?")[ 0 ] if "?" in value else value;
 				var parameter = value.split("?")[ 1 ] if "?" in value else null;
 				if function in functions:
-					var returnValue = functions[ function ].call(parameter) if parameter != null else functions[ function ].call();
+					var returnValue = functions[ function ].call(parameter);
 					if returnValue != null:
 						client.put_data(("return:" + function + "?" + str(returnValue) + "|").to_utf8_buffer());
 
@@ -168,7 +165,11 @@ func _get_node_path() -> String:
 		
 	return node_path;
 
-func instatiate_node_js(code: String, logger: Callable) -> void:
+func instatiate_environment(code: String, logger: Callable) -> void:
+	if OS.get_name() == "Web":
+		_run_in_browser(code);
+		return;
+	
 	_open_session();
 	
 	kill_node_js();
@@ -179,3 +180,29 @@ func instatiate_node_js(code: String, logger: Callable) -> void:
 func kill_node_js() -> void:
 	if OS.is_process_running(_nodePid) and _nodePid != 0:
 		OS.kill(_nodePid);
+
+func _snake_to_camel(string: String) -> String:
+	var words = string.split('_');
+	for i in range(1, len(words)):
+		words[ i ] = words[ i ].capitalize();
+	return ''.join(words);
+
+func _run_in_browser(code: String) -> void:
+	var window: JavaScriptObject = JavaScriptBridge.get_interface("window");
+	for key in functions:
+		if key != "log":
+			window[ "godot_" + key ] = JavaScriptBridge.create_callback(functions[ key ]);
+	
+	var js_functions: String = "";
+	for key in functions:
+		js_functions += "const " + _snake_to_camel(key) + " = async () => {\n" +\
+		"	window.godot_" + key + "();\n" +\
+		"};\n\n";
+	
+	var js_wrapper: String = \
+		js_functions + \
+		"(async () => {\n" + code + "\n})()";
+	
+	print(js_wrapper);
+	
+	JavaScriptBridge.eval(js_wrapper);

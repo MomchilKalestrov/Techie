@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://mu3qadmfr2p3"]
+
+[ext_resource type="Texture2D" uid="uid://cwv1kquxvp2c5" path="res://visual/materials/water/fallback/water.png" id="1_8b43a"]
+
+[resource]
+albedo_texture = ExtResource("1_8b43a")
+roughness = 0.0
+uv1_scale = Vector3(0.125, 0.125, 0.125)
+uv1_triplanar = true
+uv2_scale = Vector3(0.28, 0.28, 0.28)

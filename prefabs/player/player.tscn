@@ -23,7 +23,7 @@ shape = SubResource("BoxShape3D_sxsrd")
 
 [node name="player" parent="." instance=ExtResource("2_rdx4y")]
 editor_description = "Previous model was a generic pill, but I am too lazy to fix the maps, so he'll just stay \"under\" the floor in the scene"
-transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, -0.375, 0.019)
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, -0.5, 0)
 
 [connection signal="area_entered" from="WallCheck" to="." method="_facing_wall"]
 [connection signal="area_exited" from="WallCheck" to="." method="_not_facing_wall"]

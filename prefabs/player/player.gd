@@ -41,10 +41,10 @@ func _physics_process(delta: float) -> void:
 	velocity = (target_position - global_position).snappedf(0.01) * 10;
 	if velocity == Vector3.ZERO and not has_reached_destination:
 		has_reached_destination = true;
-		NodeJs.send_next_command();
+		JS.send_next_command();
 	elif abs(shortest_angle) < 0.1 and not has_reached_rotation:
 		has_reached_rotation = true;
-		NodeJs.send_next_command(); 
+		JS.send_next_command(); 
 	
 	# return early if the body hasn't collided with anything
 	if not move_and_slide():

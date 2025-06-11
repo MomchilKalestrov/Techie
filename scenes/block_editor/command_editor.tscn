@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=3 uid="uid://rxqsxscvfax1"]
+
+[ext_resource type="Script" uid="uid://bur4yxp10n1gl" path="res://scenes/block_editor/block_editor.gd" id="1_0g2hp"]
+[ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="1_4w6jb"]
+
+[node name="CommandEditor" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4w6jb")
+script = ExtResource("1_0g2hp")
+
+[node name="BlocksContainer" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Mover" type="GridContainer" parent="BlocksContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -101.0
+offset_top = -101.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+columns = 3
+
+[node name="Null1" type="Control" parent="BlocksContainer/Mover"]
+layout_mode = 2
+
+[node name="UP" type="Button" parent="BlocksContainer/Mover"]
+custom_minimum_size = Vector2(31, 31)
+layout_mode = 2
+text = "↑"
+
+[node name="Null2" type="Control" parent="BlocksContainer/Mover"]
+layout_mode = 2
+
+[node name="Left" type="Button" parent="BlocksContainer/Mover"]
+custom_minimum_size = Vector2(31, 31)
+layout_mode = 2
+text = "← 
+"
+
+[node name="Null3" type="Control" parent="BlocksContainer/Mover"]
+layout_mode = 2
+
+[node name="Right" type="Button" parent="BlocksContainer/Mover"]
+custom_minimum_size = Vector2(31, 31)
+layout_mode = 2
+text = "→"
+
+[node name="Null4" type="Control" parent="BlocksContainer/Mover"]
+layout_mode = 2
+
+[node name="Down" type="Button" parent="BlocksContainer/Mover"]
+custom_minimum_size = Vector2(31, 31)
+layout_mode = 2
+text = "↓"
+
+[node name="Nodes" type="Control" parent="BlocksContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NavContainer" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 39)
+layout_mode = 2
+
+[node name="FlexBox" type="HBoxContainer" parent="NavContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionButton" type="OptionButton" parent="NavContainer/FlexBox"]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "Blocks"
+popup/item_0/id = 0
+popup/item_0/separator = true
+
+[connection signal="button_up" from="BlocksContainer/Mover/UP" to="." method="_move_up"]
+[connection signal="button_up" from="BlocksContainer/Mover/Left" to="." method="_move_left"]
+[connection signal="button_up" from="BlocksContainer/Mover/Right" to="." method="_move_right"]
+[connection signal="button_up" from="BlocksContainer/Mover/Down" to="." method="_move_down"]
+[connection signal="item_selected" from="NavContainer/FlexBox/OptionButton" to="." method="_add"]
