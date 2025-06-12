@@ -1,16 +1,18 @@
-<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_2001_2)">
-<circle cx="50" cy="50" r="45" fill="#94AAFF" stroke="#222E5C" stroke-width="10"/>
-<circle cx="50" cy="50" r="25" fill="#222E5C"/>
-<path d="M45 20H55L57 26V74L55 80H45L43 74V26L45 20Z" fill="#222E5C"/>
-<path d="M20 55V45L26 43H74L80 45V55L74 57H26L20 55Z" fill="#222E5C"/>
-<path d="M25.2513 32.3223L32.3223 25.2513L37.9792 28.0797L71.9203 62.0208L74.7487 67.6777L67.6777 74.7487L62.0208 71.9203L28.0797 37.9792L25.2513 32.3223Z" fill="#222E5C"/>
-<path d="M32.3223 74.7487L25.2513 67.6777L28.0797 62.0208L62.0208 28.0797L67.6777 25.2513L74.7487 32.3223L71.9203 37.9792L37.9792 71.9203L32.3223 74.7487Z" fill="#222E5C"/>
-<circle cx="50" cy="50" r="10" fill="#94AAFF"/>
-</g>
-<defs>
-<clipPath id="clip0_2001_2">
-<rect width="100" height="100" fill="white"/>
-</clipPath>
-</defs>
+<svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="38" cy="38" r="38" fill="#DDF5FF"/>
+<ellipse cx="38" cy="39" rx="32" ry="18" fill="#FFDC52"/>
+<path d="M10 27H66L70 31V47L66 51H10L6 47V31L10 27Z" fill="#B7B7B7"/>
+<path d="M18.5 27H26.5L18.5 51H10.5L18.5 27Z" fill="white" fill-opacity="0.25"/>
+<path d="M43.5 27H51.5L43.5 51H35.5L43.5 27Z" fill="white" fill-opacity="0.25"/>
+<path d="M44.5 27H46.5L38.5 51H36.5L44.5 27Z" fill="white" fill-opacity="0.25"/>
+<path d="M20.5 27H22.5L14.5 51H12.5L20.5 27Z" fill="white" fill-opacity="0.25"/>
+<path d="M65.5 27H66L70 31V37.5L65.5 51H57.5L65.5 27Z" fill="white" fill-opacity="0.25"/>
+<path d="M12 31H64L66 33V45L64 47H12L10 45V33L12 31Z" fill="black"/>
+<path d="M19.5 31H25L19.5 47H14L19.5 31Z" fill="white" fill-opacity="0.125"/>
+<path d="M44.5 31H50L44.5 47H39L44.5 31Z" fill="white" fill-opacity="0.125"/>
+<path d="M66 33V45L64 47H61L66 33Z" fill="white" fill-opacity="0.125"/>
+<rect x="18" y="31" width="8" height="16" fill="#A0FF65"/>
+<rect x="50" y="31" width="8" height="16" fill="#A0FF65"/>
+<rect x="20" y="34" width="2" height="4" fill="#DEFFCA"/>
+<rect x="52" y="34" width="2" height="4" fill="#DEFFCA"/>
 </svg>
