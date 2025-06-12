@@ -12,12 +12,12 @@ func _ready() -> void:
 	var collision: CollisionShape3D = CollisionShape3D.new();
 	collision.shape = BoxShape3D.new();
 	
-	var mesh: MeshInstance3D = MeshInstance3D.new();
-	mesh.mesh = BoxMesh.new();
-	mesh.mesh.material = preload("res://visual/materials/crate/crate.tres");
-	
 	add_child(collision);
-	add_child(mesh);
+	add_child(preload("res://visual/models/crate/crate.glb").instantiate());
+
+func _physics_process(_delta: float) -> void:
+	if linear_velocity.snappedf(0.01) != Vector3.ZERO:
+		rotation.y = atan2(linear_velocity.x, linear_velocity.z) - PI / 2;
 
 func serialize() -> Dictionary:
 	return {

@@ -195,14 +195,13 @@ func _run_in_browser(code: String) -> void:
 	
 	var js_functions: String = "";
 	for key in functions:
-		js_functions += "const " + _snake_to_camel(key) + " = async () => {\n" +\
-		"	window.godot_" + key + "();\n" +\
-		"};\n\n";
+		js_functions += \
+			"const " + _snake_to_camel(key) + " = async () => {\n" +\
+			"	window.godot_" + key + "();\n" +\
+			"};\n\n";
 	
 	var js_wrapper: String = \
 		js_functions + \
 		"(async () => {\n" + code + "\n})()";
 	
-	print(js_wrapper);
-	
-	JavaScriptBridge.eval(js_wrapper);
+	JavaScriptBridge.eval(js_wrapper, true);
