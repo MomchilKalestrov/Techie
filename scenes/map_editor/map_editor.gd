@@ -10,7 +10,8 @@ const _node_types: Array[ String ] = [
 	"Lever",
 	"Moveable",
 	"Player",
-	"Wall"
+	"Wall",
+	"Conveyor"
 ];
 
 const _scene_types: Dictionary[ String, PackedScene ] = {

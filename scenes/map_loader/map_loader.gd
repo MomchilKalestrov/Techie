@@ -22,34 +22,21 @@ func _load_world() -> void:
 	
 	for node in Globals.map_data:
 		match node.type:
-			"wall":
-				var wall: Wall3D = Wall3D.new();
-				$Nodes.add_child(wall);
-				Globals.set_map_node_state(wall, node);
-			"button":
-				var button: Button3D = Button3D.new();
-				$Nodes.add_child(button);
-				Globals.set_map_node_state(button, node);
-				activators.push_front(button);
+			"button", "lever":
+				var activator: Activator3D = Globals.instantiate_class(node.type.capitalize() + "3D");
+				$Nodes.add_child(activator);
+				Globals.set_map_node_state(activator, node);
+				activators.push_front(activator);
 			"blockade": # ignore blockades untill we have initialized all buttons, that way we can link them together
 				blockade_nodes.push_front(node);
 			"player":
 				var player = preload("res://prefabs/player/player.tscn").instantiate();
 				$Nodes.add_child(player);
 				Globals.set_map_node_state(player, node);
-			"lever":
-				var lever: Lever3D = Lever3D.new();
-				$Nodes.add_child(lever);
-				Globals.set_map_node_state(lever, node);
-				activators.push_front(lever);
-			"finish":
-				var finish: Finish3D = Finish3D.new();
-				$Nodes.add_child(finish);
-				Globals.set_map_node_state(finish, node);
-			"moveable":
-				var moveable: Moveable3D = Moveable3D.new();
-				$Nodes.add_child(moveable);
-				Globals.set_map_node_state(moveable, node);
+			_:
+				var body = Globals.instantiate_class(node.type.capitalize() + "3D");
+				$Nodes.add_child(body);
+				Globals.set_map_node_state(body, node);
 	
 	# wait for the buttons to be added to the tree
 	await get_tree().process_frame;
