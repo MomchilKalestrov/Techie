@@ -13,7 +13,7 @@ var functions: Dictionary[ String, Callable ] = {
 		_logger.call(message)
 		print("Message from Node.JS environment: ", message),
 	"is_facing_wall": func ifw(_args) -> bool:
-		return Globals.player.is_facing_wall,
+		return Globals.player.is_facing_wall(),
 	"interract": func i(_args) -> void:
 		Globals.player.interract();
 };
@@ -187,11 +187,17 @@ func _snake_to_camel(string: String) -> String:
 		words[ i ] = words[ i ].capitalize();
 	return ''.join(words);
 
-func _run_in_browser(code: String) -> void:
+func _load_js_callbacks() -> void:
 	var window: JavaScriptObject = JavaScriptBridge.get_interface("window");
 	for key in functions:
 		if key != "log":
 			window[ "godot_" + key ] = JavaScriptBridge.create_callback(functions[ key ]);
+
+var _has_loaded_callbacks = false;
+func _run_in_browser(code: String) -> void:
+	if not _has_loaded_callbacks:
+		_load_js_callbacks();
+		_has_loaded_callbacks = true;
 	
 	var js_functions: String = "";
 	for key in functions:
