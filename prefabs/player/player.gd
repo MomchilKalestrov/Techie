@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 			collider.apply_force(collision.get_normal() * -15);
 
 func _facing_wall(body: Node3D) -> void:
-	_is_facing_wall = body is Wall3D or _is_facing_wall;
+	_is_facing_wall = body is StaticBody3D or _is_facing_wall;
 
 func _not_facing_wall(_body: Node3D) -> void:
 	await get_tree().process_frame;
@@ -87,6 +87,7 @@ func interract() -> void:
 			area.interract();
 
 func is_facing_wall() -> bool:
+	print(_is_facing_wall);
 	return _is_facing_wall;
 
 func serialize() -> Dictionary:

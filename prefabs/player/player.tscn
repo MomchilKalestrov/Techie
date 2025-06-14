@@ -27,3 +27,5 @@ transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 
 
 [connection signal="area_entered" from="WallCheck" to="." method="_facing_wall"]
 [connection signal="area_exited" from="WallCheck" to="." method="_not_facing_wall"]
+[connection signal="body_entered" from="WallCheck" to="." method="_facing_wall"]
+[connection signal="body_exited" from="WallCheck" to="." method="_not_facing_wall"]
