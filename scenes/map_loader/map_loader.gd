@@ -1,5 +1,9 @@
 extends Node3D;
 
+const _scenePrefabs: Dictionary[ String, PackedScene ] = {
+	"player": preload("res://prefabs/player/player.tscn")
+};
+
 func _ready() -> void:
 	load_map();
 	Globals.world = self;
@@ -24,19 +28,15 @@ func _load_world() -> void:
 		match node.type:
 			"button", "lever":
 				var activator: Activator3D = Globals.instantiate_class(node.type.capitalize() + "3D");
-				$Nodes.add_child(activator);
 				Globals.set_map_node_state(activator, node);
 				activators.push_front(activator);
+				$Nodes.add_child(activator);
 			"blockade": # ignore blockades untill we have initialized all buttons, that way we can link them together
 				blockade_nodes.push_front(node);
-			"player":
-				var player = preload("res://prefabs/player/player.tscn").instantiate();
-				$Nodes.add_child(player);
-				Globals.set_map_node_state(player, node);
 			_:
-				var body = Globals.instantiate_class(node.type.capitalize() + "3D");
-				$Nodes.add_child(body);
+				var body: Node3D = _scenePrefabs[ node.type ].instantiate() if node.type in _scenePrefabs else Globals.instantiate_class(node.type.capitalize() + "3D");
 				Globals.set_map_node_state(body, node);
+				$Nodes.add_child(body);
 	
 	# wait for the buttons to be added to the tree
 	await get_tree().process_frame;
