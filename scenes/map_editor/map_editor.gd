@@ -122,7 +122,12 @@ func _update_size(size: Vector2) -> void:
 	var wall: Wall3D = _current_chosen_node as Wall3D;
 	wall.size = size;
 
-func _back() -> void:
+func _prompt_back() -> void:
+	$ConfirmationDialog.confirmed.connect(_confirm_back);
+	$ConfirmationDialog.show();
+
+func _confirm_back() -> void:
+	$ConfirmationDialog.confirmed.disconnect(_confirm_back);
 	get_tree().change_scene_to_file("res://scenes/home_scene/home_scene.tscn");
 
 func _open_save_dialog() -> void:
@@ -140,7 +145,12 @@ func _save(path: String) -> void:
 func _is_withing_rect(box_start: Vector2, box_end: Vector2, point: Vector2) -> bool:
 	return box_start.x < point.x and box_end.x > point.x and box_start.y < point.y and box_end.y > point.y;
 
-func _open_map_load() -> void:
+func _prompt_open_map_load() -> void:
+	$ConfirmationDialog.confirmed.connect(_confirm_open_map_load);
+	$ConfirmationDialog.show();
+
+func _confirm_open_map_load() -> void:
+	$ConfirmationDialog.confirmed.disconnect(_confirm_open_map_load);
 	$OpenFileDialog.show();
 
 func _load_map(path: String) -> void:
