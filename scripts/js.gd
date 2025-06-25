@@ -187,11 +187,23 @@ func _snake_to_camel(string: String) -> String:
 		words[ i ] = words[ i ].capitalize();
 	return ''.join(words);
 
+func _c(a) -> void:
+	print("FUCK");
+
 func _load_js_callbacks() -> void:
 	var window: JavaScriptObject = JavaScriptBridge.get_interface("window");
 	for key in functions:
 		if key != "log":
 			window[ "godot_" + key ] = JavaScriptBridge.create_callback(functions[ key ]);
+
+func _assemble_js_functions() -> String:
+	var js_functions: String = "";
+	for key in functions:
+		js_functions += \
+			"const " + _snake_to_camel(key) + " = async () => {\n" +\
+			"	window.godot_" + key + "();\n" +\
+			"};\n\n";
+	return js_functions;
 
 var _has_loaded_callbacks = false;
 func _run_in_browser(code: String) -> void:
@@ -199,15 +211,10 @@ func _run_in_browser(code: String) -> void:
 		_load_js_callbacks();
 		_has_loaded_callbacks = true;
 	
-	var js_functions: String = "";
-	for key in functions:
-		js_functions += \
-			"const " + _snake_to_camel(key) + " = async () => {\n" +\
-			"	window.godot_" + key + "();\n" +\
-			"};\n\n";
-	
 	var js_wrapper: String = \
-		js_functions + \
+		_assemble_js_functions() + \
 		"(async () => {\n" + code + "\n})()";
-	
+
+	var window: JavaScriptObject = JavaScriptBridge.get_interface("window");
+	window.d = JavaScriptBridge.create_callback(_c);
 	JavaScriptBridge.eval(js_wrapper, true);

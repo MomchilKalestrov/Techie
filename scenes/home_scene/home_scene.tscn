@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwxolw5wcd21s"]
+[gd_scene load_steps=4 format=3 uid="uid://bwxolw5wcd21s"]
 
 [ext_resource type="Script" uid="uid://bv60ivncyl8n3" path="res://scenes/home_scene/home_scene.gd" id="1_kqkjk"]
 [ext_resource type="PackedScene" uid="uid://yn5es25x807f" path="res://scenes/map_loader/map_loader.tscn" id="2_ba08s"]
+[ext_resource type="Texture2D" uid="uid://c0a7yyd8q1hi1" path="res://visual/ui/edit.svg" id="2_clrvp"]
 
 [node name="HomeScene" type="Node3D"]
 script = ExtResource("1_kqkjk")
@@ -94,6 +95,7 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_icons/icon = ExtResource("2_clrvp")
 text = "Editor"
 
 [node name="MapLoader" parent="." instance=ExtResource("2_ba08s")]

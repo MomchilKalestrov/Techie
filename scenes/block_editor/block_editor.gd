@@ -131,7 +131,7 @@ func _drag_block(dragged_block: CommandBlock) -> void:
 			continue;
 		var block: CommandBlock = node;
 		for connection in block.connections:
-			if connection.can_connect(dragged_block.global_position):
+			if connection.can_connect(dragged_block.get_rectangle()):
 				connection.connect_block(dragged_block);
 
 func _drag_condition(dragged_condition: Condition) -> void:

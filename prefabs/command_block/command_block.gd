@@ -136,6 +136,9 @@ func extract_js_code() -> String:
 			result = result.replace("%" + str(index), js_snippet);
 	return result;
 
+func get_rectangle() -> Rect2:
+	return Rect2(global_position, size);
+
 func get_length(start_index: int) -> int:
 	var total_length = 1;
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cchft1x3hle41"]
+[gd_scene load_steps=15 format=3 uid="uid://cchft1x3hle41"]
 
 [ext_resource type="Script" uid="uid://llrbojt5iu2n" path="res://scenes/map_editor/map_editor.gd" id="1_p4a8s"]
 [ext_resource type="Theme" uid="uid://bypc4xue8puse" path="res://visual/ui/theme.tres" id="2_14mad"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://dlnntis5lrudq" path="res://visual/ui/danger_stylebox.tres" id="4_l06n5"]
 [ext_resource type="PackedScene" uid="uid://yn5es25x807f" path="res://scenes/map_loader/map_loader.tscn" id="5_j473l"]
 [ext_resource type="Texture2D" uid="uid://dxg24moaelqk0" path="res://visual/ui/open.svg" id="7_d82mg"]
+[ext_resource type="Texture2D" uid="uid://cptb4tn4r0y12" path="res://visual/ui/back.svg" id="7_gofk3"]
 [ext_resource type="Texture2D" uid="uid://b2vb177uc76tj" path="res://visual/ui/save.svg" id="8_jmg76"]
 
 [sub_resource type="Gradient" id="Gradient_vba5k"]
@@ -205,6 +206,7 @@ grow_horizontal = 2
 
 [node name="Back" type="Button" parent="Container/Window/Panel/FlexBox"]
 layout_mode = 2
+theme_override_icons/icon = ExtResource("7_gofk3")
 text = "Back"
 
 [node name="Load" type="Button" parent="Container/Window/Panel/FlexBox"]
